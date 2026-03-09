@@ -1,0 +1,612 @@
+html {
+    font-size: 16px !important;
+}
+.modal-is-opened {
+    overflow: hidden !important;
+}
+:root,
+:host,
+.code-block__preview {
+
+    /************************************************
+    ================ color palette ==================
+    ************************************************/
+    /*primary*/
+    --fz-color-primary-1: rgb(230, 241, 252);
+    --fz-color-primary-2: rgb(206, 230, 252);
+    --fz-color-primary-3: rgb(182, 217, 242);     /* this is the button color default */
+    --fz-color-primary-4: rgb(0, 188, 235);     /* this is the button color hover default */
+    --fz-color-primary-5: rgb(0, 112, 210);
+    --fz-color-primary-6: rgb(0, 81, 175);
+    --fz-color-primary-7: rgb(13, 39, 77);
+    --fz-color-primary-8: rgb(0, 5, 56);
+    --fz-color-primary-9: unset;
+    --fz-color-primary-10: unset;
+
+    /*secondary*/
+    --fz-color-secondary-1: unset;
+    --fz-color-secondary-2: unset;
+    --fz-color-secondary-3: unset;
+    --fz-color-secondary-4: unset;
+    --fz-color-secondary-5: unset;
+    --fz-color-secondary-6: unset;
+    --fz-color-secondary-7: unset;
+    --fz-color-secondary-8: unset;
+    --fz-color-secondary-9: unset;
+    --fz-color-secondary-10: unset;
+
+    /* tertiary */
+    --fz-color-tertiary-1: unset;
+    --fz-color-tertiary-2: unset;
+    --fz-color-tertiary-3: unset;
+    --fz-color-tertiary-4: unset;
+    --fz-color-tertiary-5: unset;
+    --fz-color-tertiary-6: unset;
+    --fz-color-tertiary-7: unset;
+    --fz-color-tertiary-8: unset;
+    --fz-color-tertiary-9: unset;
+    --fz-color-tertiary-10: unset;
+
+    /*neutral light=1 to dark=10*/
+    --fz-color-neutral-1: rgb(244, 245, 248);
+    --fz-color-neutral-2: rgb(231, 232, 233);
+    --fz-color-neutral-3: rgb(143, 143, 143);
+    --fz-color-neutral-4: rgb(96, 97, 98);
+    --fz-color-neutral-5: rgb(27, 28, 29);
+    --fz-color-neutral-6: unset;
+    --fz-color-neutral-7: unset;
+    --fz-color-neutral-8: unset;
+    --fz-color-neutral-9: unset;
+    --fz-color-neutral-10: unset;
+
+    /* Neutral one-offs */
+    --fz-color-neutral-0: rgb(255, 255, 255);
+    --fz-color-neutral-1000: rgb(0, 0, 0);
+
+    /* Success */
+    --fz-color-success-1: rgb(240, 253, 244); /* not editable */
+    --fz-color-success-2: rgb(134, 239, 172); /* not editable */
+    --fz-color-success-3: rgb(34, 197, 94); /* not editable */
+    --fz-color-success-4: rgb(22, 163, 74); /* not editable */
+    --fz-color-success-5: rgb(20, 83, 45); /* not editable */
+
+    /* Warning */
+    --fz-color-warning-1: rgb(255, 251, 235); /* not editable */
+    --fz-color-warning-2: rgb(252, 211, 77); /* not editable */
+    --fz-color-warning-3: rgb(245, 158, 11); /* not editable */
+    --fz-color-warning-4: rgb(217, 119, 6); /* not editable */
+    --fz-color-warning-5: rgb(120, 53, 15); /* not editable */
+
+    /* Danger */
+    --fz-color-danger-1: rgb(254, 242, 242); /* not editable */
+    --fz-color-danger-2: rgb(252, 165, 165); /* not editable */
+    --fz-color-danger-3: rgb(239, 68, 68); /* not editable */
+    --fz-color-danger-4: rgb(220, 38, 38); /* not editable */
+    --fz-color-danger-5: rgb(127, 29, 29); /* not editable */
+
+    /* Info */
+    --fz-color-info-1: rgb(239, 246, 255); /* not editable */
+    --fz-color-info-2: rgb(147, 197, 253); /* not editable */
+    --fz-color-info-3: rgb(59, 130, 246); /* not editable */
+    --fz-color-info-4: rgb(37, 99, 235); /* not editable */
+    --fz-color-info-5: rgb(30, 58, 138); /* not editable */
+
+    /* Spacings */
+    --fz-spacing-5x-small: 0.125rem; /* 2px */
+    --fz-spacing-4x-small: 0.25rem; /* 4px */
+    --fz-spacing-3x-small: 0.375rem; /* 6px */
+    --fz-spacing-2x-small: 0.5rem; /* 8px */
+    --fz-spacing-1x-small: 0.625rem; /* 10px */
+    --fz-spacing-x-small: 0.75rem; /* 12px */
+    --fz-spacing-small: 1rem; /* 16px */
+    --fz-spacing-medium: 1.25rem; /* 20px */
+    --fz-spacing-large: 1.5rem; /* 24px */
+    --fz-spacing-x-large: 2rem; /* 32px */
+    --fz-spacing-2x-large: 2.5rem; /* 40px */
+    --fz-spacing-3x-large: 3rem; /* 48px */
+    --fz-spacing-4x-large: 3.5rem; /* 56px */
+    --fz-spacing-5x-large: 4rem; /* 64px */
+    --fz-spacing-6x-large: 5rem; /* 80px */
+    --fz-spacing-7x-large: 6rem; /* 96px */
+
+    /* Weights */
+    --fz-weight-light: 300; /* not editable */
+    --fz-weight-regular: 400; /* not editable */
+    --fz-weight-medium: 500; /* not editable */
+    --fz-weight-semi-bold: 600; /* not editable */
+    --fz-weight-bold: 700; /* not editable */
+    --fz-weight-extra-bold: 800; /* not editable */
+    /************************************************
+    ===================== Globals ===================
+    ************************************************/
+    /* Global animations */
+    --fz-animation-1-play-state: paused;
+    --fz-animation-1-name: fadeInDown;
+    --fz-animation-1-duration: 700ms;
+    --fz-animation-1-delay: 200ms;
+    --fz-animation-1-fill-mode: both;
+
+    /* Global shadows */
+    --fz-shadow-none: none; /* only for drop down selection */
+    --fz-shadow-x-small: 0px 1px 2px rgba(17, 24, 39, 0.06), 0px 1px 3px rgba(17, 24, 39, 0.1);
+    --fz-shadow-small: 0px 2px 4px rgba(17, 24, 39, 0.06), 0px 4px 6px rgba(17, 24, 39, 0.1);
+    --fz-shadow-medium: 0px 10px 15px rgba(17, 24, 39, 0.1), 0px 4px 6px rgba(17, 24, 39, 0.05);
+    --fz-shadow-large: 0px 20px 25px rgba(17, 24, 39, 0.1), 0px 10px 10px rgba(17, 24, 39, 0.04);
+    --fz-shadow-x-large: 0px 25px 50px rgba(17, 24, 39, 0.25);
+    --fz-shadow-x-small-top: 0px -1px 2px rgba(17, 24, 39, 0.06), 0px -1px 3px rgba(17, 24, 39, 0.1);
+    --fz-shadow-medium-top: 0px -10px 15px rgba(17, 24, 39, 0.1), 0px -4px 6px rgba(17, 24, 39, 0.05);
+
+    /* Global link colors */
+    --fz-link-color: rgb(0, 112, 210);
+    --fz-link-color-hover: rgb(0, 81, 175);
+    --fz-link-color-visited: var(--fz-link-color);
+    --fz-link-color-actived: var(--fz-link-color);
+    --fz-link-decoration: underline;
+    --fz-link-decoration-hover: underline;
+
+    /* Global Border radius sizes */
+    --fz-border-radius-none: 0;
+    --fz-border-radius-x-small: 2px;
+    --fz-border-radius-small: 4px;
+    --fz-border-radius-medium: 8px; /* Default for tile edge. */
+    --fz-border-radius-large: 10px;
+    --fz-border-radius-x-large: 48px;
+    --fz-border-radius-circle: 50%;
+    --fz-border-radius-pill: 9999px;
+
+    /* Fonts */
+    /*font family*/
+    --fz-font-family-1: 'Cisco Sans', sans-serif;
+    --fz-font-family-2: 'Arial', sans-serif;
+    --fz-font-family-3: 'Arial', sans-serif;
+    
+    
+    /* this will change all spacing in the page (i.e) */
+    --fz-base-font-size: 16px; /* not editable */
+
+    /************************************************
+    ===================== headings ==================
+    ************************************************/
+    /* global headings */
+    --fz-heading-1-font-size-factor: 1;
+    --fz-heading-1-line-height-factor: 1;
+    --fz-heading-1-letter-spacing-factor: 1;
+
+    --fz-heading-2-font-size-factor: 1;
+    --fz-heading-2-line-height-factor: 1;
+    --fz-heading-2-letter-spacing-factor: 1;
+
+    --fz-heading-3-font-size-factor: 1;
+    --fz-heading-3-line-height-factor: 1;
+    --fz-heading-3-letter-spacing-factor: 1;
+
+    --fz-heading-4-font-size-factor: 1;
+    --fz-heading-4-line-height-factor: 1;
+    --fz-heading-4-letter-spacing-factor: 1;
+
+    --fz-heading-5-font-size-factor: 1;
+    --fz-heading-5-line-height-factor: 1;
+    --fz-heading-5-letter-spacing-factor: 1;
+
+    --fz-heading-6-font-size-factor: 1;
+    --fz-heading-6-line-height-factor: 1;
+    --fz-heading-6-letter-spacing-factor: 1;
+
+    --fz-paragraph-1-font-size-factor: 1;
+    --fz-paragraph-1-line-height-factor: 1;
+    --fz-paragraph-1-letter-spacing-factor: 1;
+
+    --fz-paragraph-2-font-size-factor: 1;
+    --fz-paragraph-2-line-height-factor: 1;
+    --fz-paragraph-2-letter-spacing-factor: 1;
+
+    --fz-paragraph-3-font-size-factor: 1;
+    --fz-paragraph-3-line-height-factor: 1;
+    --fz-paragraph-3-letter-spacing-factor: 1;
+
+    --fz-system-text-1-font-size-factor: 1;
+    --fz-system-text-1-line-height-factor: 1;
+    --fz-system-text-1-letter-spacing-factor: 1;
+
+    /*text styles 1 REM = 16px*/
+    --fz-heading-1-color: var(--fz-color-neutral-5);
+    --fz-heading-1-weight: var(--fz-weight-bold);
+    --fz-heading-1-font-family: var(--fz-font-family-1);
+    --fz-heading-1-font-size: calc(4rem * var(--fz-heading-1-font-size-factor)); /* 64px */
+    --fz-heading-1-letter-spacing: 0;
+    --fz-heading-1-line-height: calc(1.2 * var(--fz-heading-1-line-height-factor));
+
+    --fz-heading-2-color: var(--fz-color-neutral-5);
+    --fz-heading-2-weight: var(--fz-weight-bold);
+    --fz-heading-2-font-family: var(--fz-font-family-1);
+    --fz-heading-2-font-size: calc(3.25rem * var(--fz-heading-2-font-size-factor)); /* 52px */
+    --fz-heading-2-letter-spacing: 0;
+    --fz-heading-2-line-height: calc(1.4 * var(--fz-heading-2-line-height-factor));
+
+    --fz-heading-3-color: var(--fz-color-neutral-5);
+    --fz-heading-3-weight: var(--fz-weight-medium);
+    --fz-heading-3-font-family: var(--fz-font-family-1);
+    --fz-heading-3-font-size: calc(2.5rem * var(--fz-heading-3-font-size-factor)); /* 40px */
+    --fz-heading-3-line-height: calc(1.4 * var(--fz-heading-3-line-height-factor));
+    --fz-heading-3-letter-spacing: 0;
+
+    --fz-heading-4-color: var(--fz-color-neutral-5);
+    --fz-heading-4-weight: var(--fz-weight-medium);
+    --fz-heading-4-font-family: var(--fz-font-family-1);
+    --fz-heading-4-font-size: calc(2rem * var(--fz-heading-4-font-size-factor)); /* 32px */
+    --fz-heading-4-line-height: calc(1.4 * var(--fz-heading-4-line-height-factor));
+    --fz-heading-4-letter-spacing: 0;
+
+    --fz-heading-5-color: var(--fz-color-neutral-5);
+    --fz-heading-5-weight: var(--fz-weight-regular);
+    --fz-heading-5-font-family: var(--fz-font-family-1);
+    --fz-heading-5-font-size: calc(1.5rem * var(--fz-heading-5-font-size-factor)); /* 24px */
+    --fz-heading-5-line-height: calc(1.5 * var(--fz-heading-5-line-height-factor));
+    --fz-heading-5-letter-spacing: 0;
+
+    --fz-heading-6-color: var(--fz-color-neutral-5);
+    --fz-heading-6-weight: var(--fz-weight-regular);
+    --fz-heading-6-font-family: var(--fz-font-family-1);
+    --fz-heading-6-font-size: calc(1.25rem * var(--fz-heading-6-font-size-factor)); /* 20px */
+    --fz-heading-6-line-height: calc(1.5 * var(--fz-heading-6-line-height-factor));
+    --fz-heading-6-letter-spacing: 0;
+
+    --fz-paragraph-1-color: var(--fz-color-neutral-5);
+    --fz-paragraph-1-weight: var(--fz-weight-regular);
+    --fz-paragraph-1-font-family: var(--fz-font-family-1);
+    --fz-paragraph-1-font-size: calc(1rem * var(--fz-paragraph-1-font-size-factor)); /* 16px */
+    --fz-paragraph-1-line-height: calc(1.5 * var(--fz-paragraph-1-line-height-factor));
+    --fz-paragraph-1-letter-spacing: 0;
+
+    --fz-paragraph-2-color: var(--fz-color-neutral-4);
+    --fz-paragraph-2-weight: var(--fz-weight-regular);
+    --fz-paragraph-2-font-family: var(--fz-font-family-1);
+    --fz-paragraph-2-font-size: calc(1rem * var(--fz-paragraph-2-font-size-factor)); /* 16px */
+    --fz-paragraph-2-line-height: calc(1.5 * var(--fz-paragraph-2-line-height-factor));
+    --fz-paragraph-2-letter-spacing: 0;
+
+    --fz-paragraph-3-color: var(--fz-color-neutral-4);
+    --fz-paragraph-3-weight: var(--fz-weight-regular);
+    --fz-paragraph-3-font-family: var(--fz-font-family-1);
+    --fz-paragraph-3-font-size: calc(1rem * var(--fz-paragraph-3-font-size-factor)); /* 16px */
+    --fz-paragraph-3-line-height: calc(1 * var(--fz-paragraph-3-line-height-factor));
+    --fz-paragraph-3-letter-spacing: 0;
+
+    --fz-system-text-1-color: var(--fz-color-neutral-4);
+    --fz-system-text-1-weight: var(--fz-weight-regular);
+    --fz-system-text-1-font-family: var(--fz-font-family-1);
+    --fz-system-text-1-font-size: calc(0.875rem * var(--fz-system-text-1-font-size-factor)); /* 14px */
+    --fz-system-text-1-line-height: calc(1.5 * var(--fz-system-text-1-line-height-factor));
+    --fz-system-text-1-letter-spacing: 0;
+
+
+    /************************************************
+    ===================== Buttons ===================
+    ************************************************/
+    /* global for buttons */
+    --fz-btn-global-font-family: var(--fz-font-family-1);
+    --fz-btn-global-font-size: var(--fz-base-font-size); /* not editable - changes per button size*/
+    --fz-btn-global-weight: 700; /* bold - not editable */
+    --fz-btn-global-line-height: 1em; /* not editable */
+    --fz-btn-global-letter-spacing: normal; /* not editable */
+    --fz-btn-global-padding: 1em 2em; /* not editable */
+    --fz-btn-global-disabled-bg: rgb(243, 244, 246); /* not editable */
+    --fz-btn-global-disabled-color: rgb(209, 213, 219); /* not editable */
+    --fz-btn-global-disabled-border-color: var(--fz-btn-global-disabled-bg); /* not editable */
+    --fz-btn-global-animation-transition: background 200ms ease-in-out; /* not editable */
+    --fz-btn-global-focus-bg: var(--fz-color-primary-3); /* not editable */
+    --fz-btn-global-focus-color: var(--fz-color-neutral-0); /* not editable */
+    --fz-btn-global-focus-border-color: var(--fz-color-neutral-0); /* not editable */
+    --fz-btn-global-shadow: none;
+    --fz-btn-global-border-radius: 48px;
+    --fz-btn-global-border-width: 1px;
+    --fz-btn-global-border: none;
+
+    /* Primary button */
+    --fz-btn-primary-bg: var(--fz-color-primary-5);
+    --fz-btn-primary-color: var(--fz-color-neutral-0); /* text */
+    --fz-btn-primary-border-color: none;
+    --fz-btn-primary-hover-bg: var(--fz-color-primary-6);
+    --fz-btn-primary-hover-color: var(--fz-color-neutral-0); /* hover text */
+    --fz-btn-primary-hover-border-color: none;
+    --fz-btn-primary-padding: var(--fz-btn-global-padding); /* not editable */
+    --fz-btn-primary-border-radius: var(--fz-btn-global-border-radius); /* not editable */
+
+    /* Secondary button */
+    --fz-btn-secondary-bg: var(--fz-color-neutral-0);
+    --fz-btn-secondary-color: var(--fz-color-primary-5);
+    --fz-btn-secondary-border-color: var(--fz-color-primary-5);
+    --fz-btn-secondary-hover-bg: var(--fz-color-primary-6);
+    --fz-btn-secondary-hover-color: var(--fz-color-neutral-0);
+    --fz-btn-secondary-hover-border-color: var(--fz-color-primary-6);
+    /* not editable */
+    --fz-btn-secondary-padding: var(--fz-btn-global-padding);
+    /* not editable */
+    --fz-btn-secondary-border-radius: var(--fz-btn-global-border-radius);
+
+    /* Tertiary button */
+    --fz-btn-custom-1-bg: none;
+    --fz-btn-custom-1-color: var(--fz-color-primary-5);
+    --fz-btn-custom-1-border: none;
+    --fz-btn-custom-1-hover-bg: none;
+    --fz-btn-custom-1-hover-color: var(--fz-color-primary-6);
+    --fz-btn-custom-1-hover-border: none;
+    /* not editable */
+    --fz-btn-custom-1-padding: 0.688em 1em;
+    /* not editable */
+    --fz-btn-custom-1-border-radius: var(--fz-btn-global-border-radius);
+
+    /* Curved button */
+    --fz-btn-curved-bg: var(--fz-color-primary-5);
+    --fz-btn-curved-color: var(--fz-color-neutral-0);
+    --fz-btn-curved-border-color: none;
+    --fz-btn-curved-hover-bg: var(--fz-color-primary-6);
+    --fz-btn-curved-hover-color: var(--fz-color-neutral-0);
+    --fz-btn-curved-hover-border-color: none;
+    /* not editable */
+    --fz-btn-curved-padding: 0.5em 1em;
+    /* not editable */
+    --fz-btn-curved-border-radius: var(--fz-border-radius-pill);
+
+    /* link button */
+    --fz-btn-link-bg: none;
+    --fz-btn-link-color: var(--fz-color-primary-5);
+    --fz-btn-link-border-color: none;
+    --fz-btn-link-hover-bg: none;
+    --fz-btn-link-hover-color: var(--fz-color-primary-6);
+    --fz-btn-link-hover-border-color: none;
+    --fz-btn-link-padding: none; /* not editable */
+    --fz-btn-link-border-radius: var(--fz-btn-global-border-radius); /* not editable */
+
+    /* circle button */
+    --fz-btn-circle-bg: var(--fz-color-primary-5);
+    --fz-btn-circle-color: var(--fz-color-neutral-0);
+    --fz-btn-circle-border-color: none;
+    --fz-btn-circle-hover-bg: var(--fz-color-primary-6);
+    --fz-btn-circle-hover-color: var(--fz-color-neutral-0);
+    --fz-btn-circle-hover-border-color: none;
+    --fz-btn-circle-padding: var(--fz-btn-global-padding); /* not editable */
+    --fz-btn-circle-border-radius: 50%; /* not editable */
+
+
+    /************************************************
+    ====================   Tabs   ===================
+    ************************************************/
+    /* tab-1 is classic */
+    --fz-tabs-1-shadow: var(--fz-shadow-none);
+    --fz-tabs-1-border-radius: var(--fz-border-radius-none) var(--fz-border-radius-none) var(--fz-border-radius-none) var(--fz-border-radius-none);
+    --fz-tabs-1-bg: none;
+    --fz-tabs-1-bg-hover: none;
+    --fz-tabs-1-bg-selected: none;
+    --fz-tabs-1-color: var(--fz-color-primary-8);
+    --fz-tabs-1-color-hover: var(--fz-color-primary-5);
+    --fz-tabs-1-color-selected: var(--fz-color-primary-5);
+    --fz-tabs-1-border-color: none;
+    --fz-tabs-1-border-color-hover: none;
+    --fz-tabs-1-border-color-selected: var(--fz-color-primary-5);
+    --fz-tabs-1-border-width: 2px;
+    --fz-tabs-1-border-top: none;
+    --fz-tabs-1-border-right: none;
+    --fz-tabs-1-border-bottom: none;
+    --fz-tabs-1-border-left: none;
+    --fz-tabs-1-border-hover-top: none;
+    --fz-tabs-1-border-hover-right: none;
+    --fz-tabs-1-border-hover-bottom: none;
+    --fz-tabs-1-border-hover-left: none;
+    --fz-tabs-1-border-selected-top: none;
+    --fz-tabs-1-border-selected-right: none;
+    --fz-tabs-1-border-selected-bottom: var(--fz-tabs-1-border-width) solid var(--fz-tabs-1-color-selected);
+    --fz-tabs-1-border-selected-left: none;
+
+    /* tab-2 is accent */
+    --fz-tabs-2-shadow: var(--fz-shadow-none);
+    --fz-tabs-2-border-radius: var(--fz-border-radius-pill);
+    --fz-tabs-2-bg: none;
+    --fz-tabs-2-bg-hover: var(--fz-color-primary-3);
+    --fz-tabs-2-bg-selected: var(--fz-color-primary-5);
+    --fz-tabs-2-color: var(--fz-color-primary-8);
+    --fz-tabs-2-color-hover: var(--fz-color-primary-8);
+    --fz-tabs-2-color-selected: var(--fz-color-neutral-0);
+    --fz-tabs-2-border-color: none;
+    --fz-tabs-2-border-color-hover: none;
+    --fz-tabs-2-border-color-selected: none;
+    --fz-tabs-2-border-width: 0;
+    --fz-tabs-2-border-top: none;
+    --fz-tabs-2-border-right: none;
+    --fz-tabs-2-border-bottom: none;
+    --fz-tabs-2-border-left: none;
+    --fz-tabs-2-border-hover-top: none;
+    --fz-tabs-2-border-hover-right: none;
+    --fz-tabs-2-border-hover-bottom: none;
+    --fz-tabs-2-border-hover-left: none;
+    --fz-tabs-2-border-selected-top: none;
+    --fz-tabs-2-border-selected-right: none;
+    --fz-tabs-2-border-selected-bottom: none;
+    --fz-tabs-2-border-selected-left: none;
+
+
+    /************************************************
+    ====================  Tiles  ===================
+    ************************************************/
+    --fz-tile-1-shadow: var(--fz-shadow-small);
+    --fz-tile-1-border-radius: var(--fz-border-radius-small);
+    --fz-tile-1-social-icons-color: var(--fz-color-neutral-2);
+    --fz-tile-1-icon-type-color: var(--fz-color-primary-4); /* also the read more / less button on mobile */
+    --fz-tile-1-title-color: var(--fz-color-neutral-5);
+    --fz-tile-1-description-color: var(--fz-color-neutral-4);
+    --fz-tile-1-bg: var(--fz-color-neutral-0);
+    --fz-tile-1-hover-color: var(--fz-color-neutral-0); /* on mobile the color should be like description color */
+    --fz-tile-1-hover-bg: var(--fz-color-primary-5);
+
+
+    /************************************************
+    ====================  images  ===================
+    ************************************************/
+    --fz-image-1-shadow: var(--fz-shadow-none);
+    --fz-image-1-boarder-radius: var(--fz-border-radius-small);
+    --fz-image-1-border: none;
+
+
+    /************************************************
+    ==================== sections ===================
+    ************************************************/
+    --fz-section-height-short: 26.25rem;   /* 420px not editable */
+    --fz-section-height-medium: 36.875rem; /* 590px not editable */
+    --fz-section-height-tall: 49.25rem;    /* 788px not editable */
+    --fz-section-bg: transparent;          /* not editable */
+    --fz-section-padding-step: 10px;       /* not editable - padding will we in multiplies of this value */
+
+
+    /************************************************
+    ========== checkboxes & radio btns =============
+    ************************************************/
+    --fz-checkbox-radio-size: 1rem;
+    --fz-checkbox-radio-color-selected: var(--fz-color-info-3);
+    --fz-checkbox-radio-color-unselected: var(--fz-color-neutral-4);
+    --fz-checkbox-radio-color-selected-hover: var(--fz-color-info-4);
+    --fz-checkbox-radio-color-unselected-hover: var(--fz-color-neutral-5);
+
+    /************************************************
+    ================ item viewer ====================
+    ************************************************/
+    --fz-item-viewer-width: calc(100vw * 0.6); /* not editable */
+    --fz-item-viewer-width-mobile: 100vw; /* not editable */
+    --fz-item-viewer-header-height: 50px; /* not editable */
+
+    /************************************************
+    ================ outline ====================
+    ************************************************/
+    --fz-outline-btn-focus: 3px solid var(--fz-color-primary-2);
+}
+
+@media screen and (min-width: 640px) {
+    :root, :host {
+        --fz-heading-1-font-size-factor: 1;
+        --fz-heading-1-line-height-factor: 1;
+        --fz-heading-1-letter-spacing-factor: 1;
+
+        --fz-heading-2-font-size-factor: 1;
+        --fz-heading-2-line-height-factor: 1;
+        --fz-heading-2-letter-spacing-factor: 1;
+
+        --fz-heading-3-font-size-factor: 1;
+        --fz-heading-3-line-height-factor: 1;
+        --fz-heading-3-letter-spacing-factor: 1;
+
+        --fz-heading-4-font-size-factor: 1;
+        --fz-heading-4-line-height-factor: 1;
+        --fz-heading-4-letter-spacing-factor: 1;
+
+        --fz-heading-5-font-size-factor: 1;
+        --fz-heading-5-line-height-factor: 1;
+        --fz-heading-5-letter-spacing-factor: 1;
+
+        --fz-heading-6-font-size-factor: 1;
+        --fz-heading-6-line-height-factor: 1;
+        --fz-heading-6-letter-spacing-factor: 1;
+
+        --fz-paragraph-1-font-size-factor: 1;
+        --fz-paragraph-1-line-height-factor: 1;
+        --fz-paragraph-1-letter-spacing-factor: 1;
+
+        --fz-paragraph-2-font-size-factor: 1;
+        --fz-paragraph-2-line-height-factor: 1;
+        --fz-paragraph-2-letter-spacing-factor: 1;
+
+        --fz-paragraph-3-font-size-factor: 1;
+        --fz-paragraph-3-line-height-factor: 1;
+        --fz-paragraph-3-letter-spacing-factor: 1;
+
+        --fz-system-text-1-font-size-factor: 1;
+        --fz-system-text-1-line-height-factor: 1;
+        --fz-system-text-1-letter-spacing-factor: 1;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    :root, :host {
+        --fz-heading-1-font-size-factor: 1;
+        --fz-heading-1-line-height-factor: 1;
+        --fz-heading-1-letter-spacing-factor: 1;
+
+        --fz-heading-2-font-size-factor: 1;
+        --fz-heading-2-line-height-factor: 1;
+        --fz-heading-2-letter-spacing-factor: 1;
+
+        --fz-heading-3-font-size-factor: 1;
+        --fz-heading-3-line-height-factor: 1;
+        --fz-heading-3-letter-spacing-factor: 1;
+
+        --fz-heading-4-font-size-factor: 1;
+        --fz-heading-4-line-height-factor: 1;
+        --fz-heading-4-letter-spacing-factor: 1;
+
+        --fz-heading-5-font-size-factor: 1;
+        --fz-heading-5-line-height-factor: 1;
+        --fz-heading-5-letter-spacing-factor: 1;
+
+        --fz-heading-6-font-size-factor: 1;
+        --fz-heading-6-line-height-factor: 1;
+        --fz-heading-6-letter-spacing-factor: 1;
+
+        --fz-paragraph-1-font-size-factor: 1;
+        --fz-paragraph-1-line-height-factor: 1;
+        --fz-paragraph-1-letter-spacing-factor: 1;
+
+        --fz-paragraph-2-font-size-factor: 1;
+        --fz-paragraph-2-line-height-factor: 1;
+        --fz-paragraph-2-letter-spacing-factor: 1;
+
+        --fz-paragraph-3-font-size-factor: 1;
+        --fz-paragraph-3-line-height-factor: 1;
+        --fz-paragraph-3-letter-spacing-factor: 1;
+
+        --fz-system-text-1-font-size-factor: 1;
+        --fz-system-text-1-line-height-factor: 1;
+        --fz-system-text-1-letter-spacing-factor: 1;
+    }
+}
+
+@media screen and (min-width: 1536px) {
+    :root, :host {
+        --fz-heading-1-font-size-factor: 1;
+        --fz-heading-1-line-height-factor: 1;
+        --fz-heading-1-letter-spacing-factor: 1;
+
+        --fz-heading-2-font-size-factor: 1;
+        --fz-heading-2-line-height-factor: 1;
+        --fz-heading-2-letter-spacing-factor: 1;
+
+        --fz-heading-3-font-size-factor: 1;
+        --fz-heading-3-line-height-factor: 1;
+        --fz-heading-3-letter-spacing-factor: 1;
+
+        --fz-heading-4-font-size-factor: 1;
+        --fz-heading-4-line-height-factor: 1;
+        --fz-heading-4-letter-spacing-factor: 1;
+
+        --fz-heading-5-font-size-factor: 1;
+        --fz-heading-5-line-height-factor: 1;
+        --fz-heading-5-letter-spacing-factor: 1;
+
+        --fz-heading-6-font-size-factor: 1;
+        --fz-heading-6-line-height-factor: 1;
+        --fz-heading-6-letter-spacing-factor: 1;
+
+        --fz-paragraph-1-font-size-factor: 1;
+        --fz-paragraph-1-line-height-factor: 1;
+        --fz-paragraph-1-letter-spacing-factor: 1;
+
+        --fz-paragraph-2-font-size-factor: 1;
+        --fz-paragraph-2-line-height-factor: 1;
+        --fz-paragraph-2-letter-spacing-factor: 1;
+
+        --fz-paragraph-3-font-size-factor: 1;
+        --fz-paragraph-3-line-height-factor: 1;
+        --fz-paragraph-3-letter-spacing-factor: 1;
+
+        --fz-system-text-1-font-size-factor: 1;
+        --fz-system-text-1-line-height-factor: 1;
+        --fz-system-text-1-letter-spacing-factor: 1;
+    }
+}
