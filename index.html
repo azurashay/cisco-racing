@@ -405,34 +405,174 @@
         );
       }
 
-      /* ---------- Dot Nav ---------- */
+      /* ---------- F1 Circuit Nav ---------- */
       function DotNav({ count, activeIndex, onJump, isDark }) {
+        const W = 380, H = 200;
+
+        const circuit = [
+          { x: 150, y: 180 },
+          { x: 110, y: 170 },
+          { x: 70,  y: 155 },
+          { x: 40,  y: 130 },
+          { x: 25,  y: 100 },
+          { x: 30,  y: 68 },
+          { x: 55,  y: 40 },
+          { x: 95,  y: 20 },
+          { x: 145, y: 15 },
+          { x: 195, y: 25 },
+          { x: 240, y: 45 },
+          { x: 280, y: 60 },
+          { x: 330, y: 55 },
+          { x: 355, y: 75 },
+          { x: 355, y: 110 },
+          { x: 330, y: 140 },
+          { x: 280, y: 165 },
+        ];
+
+        const points = circuit.slice(0, count);
+
+        function smoothPath(pts, close) {
+          if (pts.length < 2) return '';
+          let d = `M ${pts[0].x} ${pts[0].y}`;
+          for (let i = 1; i < pts.length; i++) {
+            const p0 = pts[i - 1];
+            const p1 = pts[i];
+            const mx = (p0.x + p1.x) / 2;
+            const my = (p0.y + p1.y) / 2;
+            d += ` Q ${p0.x} ${p0.y}, ${mx} ${my}`;
+          }
+          const last = pts[pts.length - 1];
+          d += ` L ${last.x} ${last.y}`;
+          if (close) {
+            const first = pts[0];
+            const mx = (last.x + first.x) / 2;
+            const my = (last.y + first.y) / 2;
+            d += ` Q ${last.x} ${last.y}, ${mx} ${my} L ${first.x} ${first.y}`;
+          }
+          return d;
+        }
+
+        const fullPath = smoothPath(points, true);
+        const pastPath = activeIndex > 0 ? smoothPath(points.slice(0, activeIndex + 1), false) : '';
+
+        const trackBg = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
+        const labelCol = isDark ? 'rgba(182,217,242,0.55)' : 'rgba(0,81,175,0.45)';
+
+        const phaseColors = {
+          discover: '#00BCEB',
+          protect:  '#F59E0B',
+          monitor:  '#22C55E',
+          intro:    isDark ? 'rgba(182,217,242,0.5)' : 'rgba(0,112,210,0.4)',
+        };
+
+        function getPhase(idx) {
+          if (idx <= 2) return 'intro';
+          if (idx >= 3 && idx <= 6) return 'discover';
+          if (idx >= 7 && idx <= 12) return 'protect';
+          if (idx >= 13 && idx <= 15) return 'monitor';
+          return 'intro';
+        }
+
+        function getSegmentColor(idx) {
+          const phase = getPhase(idx);
+          if (phase === 'discover') return isDark ? '#00BCEB' : '#0077C8';
+          if (phase === 'protect') return isDark ? '#F59E0B' : '#D97706';
+          if (phase === 'monitor') return isDark ? '#22C55E' : '#16A34A';
+          return isDark ? '#00BCEB' : '#0070D2';
+        }
+
+        const pastSegments = [];
+        if (activeIndex > 0) {
+          let segStart = 0;
+          let currentColor = getSegmentColor(0);
+          for (let i = 1; i <= activeIndex; i++) {
+            const col = getSegmentColor(i);
+            if (col !== currentColor || i === activeIndex) {
+              const end = col !== currentColor ? i : i + 1;
+              pastSegments.push({
+                path: smoothPath(points.slice(segStart, Math.min(end, points.length)), false),
+                color: currentColor,
+              });
+              if (col !== currentColor) {
+                segStart = i;
+                currentColor = col;
+                if (i === activeIndex) {
+                  pastSegments.push({
+                    path: smoothPath(points.slice(segStart, segStart + 1), false),
+                    color: currentColor,
+                  });
+                }
+              }
+            }
+          }
+        }
+
         return (
-          <div className="fixed bottom-8 left-8 z-50 flex flex-row items-center gap-2">
-            {Array.from({ length: count }).map((_, idx) => (
-              <div
-                key={idx}
-                className="dot-nav-item cursor-pointer"
-                style={{
-                  width: idx === activeIndex ? '28px' : '8px',
-                  height: '8px',
-                  borderRadius: '4px',
-                  background: idx === activeIndex
-                    ? 'var(--fz-color-primary-4)'
-                    : idx < activeIndex
-                      ? isDark ? 'rgba(182,217,242,0.35)' : 'rgba(0,112,210,0.25)'
-                      : isDark ? 'rgba(182,217,242,0.12)' : 'rgba(0,112,210,0.1)',
-                  boxShadow: idx === activeIndex ? '0 0 10px var(--fz-color-primary-4)' : 'none',
-                }}
-                onClick={() => onJump(idx)}
-              />
-            ))}
-            <span
-              className="ml-4 text-xs font-mono"
-              style={{ color: isDark ? 'rgba(182,217,242,0.4)' : 'rgba(0,81,175,0.35)' }}
-            >
-              {activeIndex + 1}/{count}
-            </span>
+          <div className="fixed bottom-3 left-3 z-50" style={{ width: W + 10, height: H + 20 }}>
+            <svg width={W + 10} height={H + 10} viewBox={`-5 -5 ${W+10} ${H+10}`}>
+              <path d={fullPath} fill="none" stroke={trackBg} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d={fullPath} fill="none" stroke={trackBg} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"
+                strokeDasharray="2 6" />
+
+              {pastSegments.map((seg, i) => (
+                <path key={i} d={seg.path} fill="none" stroke={seg.color} strokeWidth="4"
+                  strokeLinecap="round" strokeLinejoin="round" opacity="0.7" />
+              ))}
+
+              {points.map((pt, idx) => {
+                const isActive = idx === activeIndex;
+                const isPast = idx < activeIndex;
+                const phase = getPhase(idx);
+                const col = isActive || isPast ? getSegmentColor(idx) : trackBg;
+
+                return (
+                  <g key={idx} onClick={() => onJump(idx)} style={{ cursor: 'pointer' }}>
+                    {isActive && (
+                      <React.Fragment>
+                        <circle cx={pt.x} cy={pt.y} r="13" fill="none" stroke={col} strokeWidth="1.5" opacity="0.35" />
+                        <circle cx={pt.x} cy={pt.y} r="18" fill="none" stroke={col} strokeWidth="0.5" opacity="0.15" />
+                      </React.Fragment>
+                    )}
+
+                    <circle cx={pt.x} cy={pt.y} r={isActive ? 7 : isPast ? 4.5 : 3.5}
+                      fill={isActive || isPast ? col : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)')}
+                      stroke={isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)'} strokeWidth="1"
+                    />
+
+                    {isActive && (
+                      <circle cx={pt.x} cy={pt.y} r="7" fill={col}
+                        style={{ filter: `drop-shadow(0 0 8px ${col})` }} />
+                    )}
+
+                    <text x={pt.x} y={pt.y - (isActive ? 16 : 10)}
+                      textAnchor="middle" fontSize={isActive ? '8' : '6.5'}
+                      fontFamily="monospace" fontWeight={isActive ? '700' : '500'}
+                      fill={isActive ? col : isPast ? labelCol : (isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)')}
+                    >
+                      {String(idx + 1).padStart(2, '0')}
+                    </text>
+                  </g>
+                );
+              })}
+
+              <g transform={`translate(${points[0].x + 12}, ${points[0].y - 2})`}>
+                {[0,1,2,3].map(i => (
+                  <rect key={i} x={(i % 2) * 3} y={Math.floor(i / 2) * 3} width="3" height="3"
+                    fill={i % 2 === Math.floor(i / 2) % 2
+                      ? (isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)')
+                      : (isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)')
+                    } />
+                ))}
+              </g>
+            </svg>
+
+            <div style={{
+              position: 'absolute', bottom: 0, right: 8,
+              fontSize: '8px', fontFamily: 'monospace', fontWeight: 600,
+              color: labelCol, letterSpacing: '0.12em', textTransform: 'uppercase',
+            }}>
+              {getPhase(activeIndex) !== 'intro' ? getPhase(activeIndex) : 'start'} · {String(activeIndex + 1).padStart(2, '0')}/{String(count).padStart(2, '0')}
+            </div>
           </div>
         );
       }
@@ -620,11 +760,11 @@
           <section
             ref={setRefs}
             dir="ltr"
-            className={`section-bg-cisco h-screen grid items-center px-8 md:px-16 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
-            style={{ gridTemplateColumns: '1fr 2fr', gap: 0, background: 'transparent' }}
+            className={`section-bg-cisco h-screen grid items-start px-8 md:px-16 transition-all duration-700 ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'}`}
+            style={{ gridTemplateColumns: '1fr 2fr', gap: 0, background: 'transparent', paddingTop: '12vh' }}
           >
             <div
-              className="section-content-cisco flex flex-col justify-center pl-4 pr-10 h-full py-12"
+              className="section-content-cisco flex flex-col justify-start pl-4 pr-10"
               style={{ borderRight: `1px solid ${divider}` }}
             >
               {phaseInfo && (
@@ -651,7 +791,7 @@
                 </pre>
               )}
             </div>
-            <div className="section-content-cisco flex justify-center items-center h-full py-8 pl-10">
+            <div className="section-content-cisco flex justify-center items-start py-0 pl-10">
               <div className="rounded-xl max-h-[88vh] w-full overflow-hidden flex justify-center items-center">
                 {image ? (
                   <img
