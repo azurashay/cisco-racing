@@ -126,82 +126,82 @@
         { title: 'Intro', custom: 'intro' },
         {
           title: 'Cisco Hybrid Mesh Firewall',
-          text: "It's 8:30 AM - Your AI-powered finance chatbot just went live\n\nYour SOC gets an alert: it reports unusual traffic patterns from the chatbot's backend containers. Someone's using prompt injection to manipulate the AI and exfiltrate data from your finance app.\n\nYou are under attack\n\nThis is dangerous because your app moves across clouds and data centers.",
+          text: "It's 8:30 AM - The new AI chatbot for your hybrid finance app just went live\n\nYour SOC gets an alert: it reports unusual traffic patterns from the chatbot's backend.\n\nYou are under attack\n\nThis is dangerous because your finance app contains confidential data and allows traffic to move between your cloud and on-premises datacenters.",
           image: 'images/1.png',
         },
         {
-          title: 'Start the Clock - You need to move fast',
-          text: "You need to contain this before the attacker pivots from cloud to your on-prem finance database.\n\nTraditional firewalls see packets — not intent. No insight into LLMs, Microservices, or encrypted east-west traffic.\n\nFortunately you have Cisco's Hybrid Mesh Firewall so you can see it all — intent, identity, and impact.",
+          title: 'PHASE 1: DISCOVER - Start the clock - You need to move fast',
+          text: "You need to contain this attack before the attacker pivots from the cloud app to your on-prem finance database.\n\nFortunately, you have Cisco Hybrid Mesh Firewall so you can see intent, context, and impact – not just packets.\n\nYou open your Cisco Security Cloud Control dashboard.",
           video: 'banner/Cinematic_Laptop_Product_Shot_Generation.mp4',
         },
         {
-          title: 'PHASE 1: DISCOVER - You spot the anomaly before it spreads',
-          text: "You are alerted to a potential prompt injection.\n\nYou see the unusual prompts in the AI Runtime chatbot that have been flagged. This early alert triggers an investigation of your AI runtime vulnerabilities.",
+          title: 'PHASE 1: DISCOVER - You spot the attack before it spreads',
+          text: "You see that unusual prompts in your finance app AI chatbot have been flagged.\n\nAnd you see that your AI chatbot is getting the details about the backend connectivity in your finance app. Attackers use this to breach your network and move laterally.",
           image: 'images/3.png',
         },
         {
           title: 'PHASE 1: DISCOVER - You check your finance app traffic for suspicious activity',
-          text: "You see problematic traffic\n\nYour Cisco solution maps microservice interactions within your finance-app to detect suspicious activity, including CVE attempts, associated process information and unauthorized lateral movement.",
+          text: "You see problematic traffic.\n\nYou find microservice interactions in your cloud finance app and between your cloud and your on-premises data centers. It looks very suspicious.",
           image: 'images/4.png',
         },
         {
-          title: 'PHASE 1: DISCOVER - You find attack activity in the finance app microservices',
-          text: "You spot problem activity in the microservice interactions within the finance-app, including CVE attempts, associated process information and unauthorized lateral movement.",
+          title: 'PHASE 1: DISCOVER - You find suspicious activity within the finance app',
+          text: "You spot traffic flowing in the wrong direction from processing to front-end.",
           image: 'images/5.png',
         },
         {
-          title: 'PHASE 1: DISCOVER - You detect lateral movement from the attack',
-          text: "You see back-end pods connecting directly to processing and front-end tiers, indicating unwanted lateral movement because your Cisco solution maps the traffic for you.",
+          title: 'PHASE 1: DISCOVER - It looks like lateral movement',
+          text: "Your back-end pod is connecting directly to your processing and front-end, indicating unwanted lateral movement from back-end to front-end.",
           image: 'images/6.png',
         },
         {
-          title: 'PHASE 2: PROTECT - Your system knows your LLM weaknesses',
-          text: "Your algorithmic red-teaming identified LLM weaknesses and it doesn't just raise an alert—it acts.",
-          image: 'images/7.png',
-        },
-        {
-          title: 'PHASE 2: PROTECT - You have guardrails in place',
-          text: "Your algorithmic red-teaming built guardrails to prevent attackers from exploiting the AI.",
+          title: 'PHASE 1: DISCOVER - The attacker is moving laterally into your datacenter',
+          text: "You see the back-end-proxy pod in your cloud connecting directly to the finance app in your on-premises data center. This could be dangerous lateral movement.",
           image: 'images/8.png',
         },
         {
-          title: 'PHASE 2: PROTECT - You must stop the lateral attack',
-          text: "Your Isovalent restricts the back-end-proxy pod and stops the lateral movement.",
+          title: 'PHASE 2: PROTECT - Your system knows your LLM weaknesses',
+          text: "Your AI algorithmic red-teaming already identified your LLM weaknesses so your system already has guardrails in place.\n\nIt automatically blocks this attack.",
+          image: 'images/7.png',
+        },
+        {
+          title: 'PHASE 2: PROTECT - You must stop the suspicious lateral movement',
+          text: "Your system automatically blocks the suspicious lateral traffic between microservices.",
           image: 'images/9.png',
         },
         {
-          title: 'PHASE 2: PROTECT - You segment and contain the lateral threat movement',
-          text: "Deep in the network, your Smart Switches and Secure Firewalls work together to enforce Layer 4 security in hard-to-reach places. They extend segmentation & contain the lateral threat movement.",
+          title: 'PHASE 2: PROTECT - You must stop the lateral threat to your on-premises datacenter',
+          text: "Deep in the network, your smart switches and secure firewalls work together to enforce security. They can block this lateral threat movement from cloud app to on-premises datacenter app with segmentation.",
           image: 'images/10.png',
         },
         {
           title: 'PHASE 2: PROTECT - You must find the malicious traffic',
-          text: "But you don't want to block legitimate traffic. So your TLS traffic is selectively inspected.",
+          text: "You don't want to block legitimate traffic. So before your segmentation blocks traffic, your TLS traffic is selectively inspected by your Encrypted Visibility Engine.",
           image: 'images/11.png',
         },
         {
-          title: 'PHASE 2: PROTECT - You detect and block the malicious traffic',
-          text: "Your safe flows are allowed and uncertain flows are decrypted for advanced threat analysis—catching both known and unknown attacks before they do harm.\n\nOnly malicious flows are blocked.",
+          title: 'PHASE 2: PROTECT - You block only malicious traffic flows',
+          text: "Your safe traffic flows are allowed to continue.\n\nUncertain flows are decrypted for advanced threat analysis to catch both known and unknown attacks.\n\nMalicious flows are automatically blocked.",
           image: 'images/12.png',
         },
         {
-          title: 'PHASE 3: MONITOR - You watch and respond in real time',
-          text: "Your runtime guardrails continuously monitor the AI environment for new injection techniques. They give you actionable recommendations to harden defenses.",
+          title: 'PHASE 3: MONITOR - You protect your AI environment',
+          text: "Your runtime guardrails continuously monitor the AI chatbot for new injection techniques. They give you actionable recommendations to further harden defenses.",
           image: 'images/13.png',
         },
         {
-          title: 'PHASE 3: MONITOR - You protected your workloads',
-          text: "Your Isovalent runtime protection stopped the exploit of your vulnerable workloads, while Cilium prevented lateral movement from your back-end pods.",
+          title: 'PHASE 3: MONITOR - You protect your workloads',
+          text: "Your runtime protection stops exploits of your workloads and prevents lateral movement.",
           image: 'images/14.png',
         },
         {
-          title: 'PHASE 3: MONITOR - You blocked the attack without disrupting operations',
-          text: "Your selective decryption combined with EVE and SnortML ensured precise inspection. You stopped both known and unknown threats while keeping operations up and running smoothly.",
+          title: 'PHASE 3: MONITOR - You block attacks without disrupting operations',
+          text: "Your selective decryption ensures that you stop both known and unknown threats while keeping operations up and running smoothly.",
           image: 'images/15.png',
         },
         {
           title: 'Mission Accomplished!',
-          text: "You stopped the attack! And you did it because you have full visibility and control across your cloud, on-prem, and hybrid environments. Lateral movement was blocked. Encrypted traffic was understood. Your AI app stayed online and protected.\n\nBecause with Cisco, your security isn't just reactive — it's everywhere your apps live.",
+          text: "You stopped the attack. And you did it because you have full visibility and control across your cloud, on-premises, and hybrid environments. Lateral movement was blocked. Encrypted traffic was understood. Your AI app stayed online and protected.\n\nBecause with Cisco, your security isn't just reactive, it's everywhere your apps live.",
           image: 'images/16.png',
         },
         { title: 'Ready for Secure Hybrid Networking?', custom: true },
@@ -466,9 +466,9 @@
         };
 
         function getPhase(idx) {
-          if (idx <= 2) return 'intro';
-          if (idx >= 3 && idx <= 6) return 'discover';
-          if (idx >= 7 && idx <= 12) return 'protect';
+          if (idx <= 1) return 'intro';
+          if (idx >= 2 && idx <= 7) return 'discover';
+          if (idx >= 8 && idx <= 12) return 'protect';
           if (idx >= 13 && idx <= 15) return 'monitor';
           return 'intro';
         }
@@ -683,13 +683,13 @@
                 <img src="banner/Cisco-logo.png" alt="Cisco Logo" className="h-16 md:h-20 w-auto mb-8" />
                 <div className="text-center max-w-3xl px-4">
                   <div className="text-lg md:text-xl mb-3" style={{color: subColor, fontWeight: 'var(--fz-weight-regular)'}}>
-                    You are the Security Leader of an
+                    You are a security leader of a
                   </div>
                   <h1 className="text-3xl md:text-5xl lg:text-6xl mb-4 leading-tight" style={{color: headingColor, fontWeight: 'var(--fz-weight-light)'}}>
-                    AI-Ready Datacenter
+                    Hybrid Datacenter
                   </h1>
                   <div className="text-xl md:text-2xl" style={{color: subColor, fontWeight: 'var(--fz-weight-medium)'}}>
-                    Hybrid Mesh Firewall Platform Tour
+                    running critical applications using AI
                   </div>
                 </div>
               </div>
