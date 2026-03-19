@@ -114,6 +114,106 @@
         text-transform: uppercase;
         transition: color 0.35s ease;
       }
+      @keyframes heroFeedRise {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-50%);
+        }
+      }
+      .hero-frame {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+      }
+      .hero-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        filter: blur(3px) saturate(0.72) brightness(0.4);
+        transform: scale(1.06);
+      }
+      .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 50% 42%, rgba(0, 188, 235, 0.08), transparent 28%),
+          radial-gradient(circle at 20% 20%, rgba(0, 188, 235, 0.05), transparent 30%),
+          radial-gradient(circle at 80% 24%, rgba(0, 112, 210, 0.04), transparent 30%),
+          linear-gradient(180deg, rgba(13, 13, 13, 0.3) 0%, rgba(13, 13, 13, 0.75) 55%, rgba(13, 13, 13, 0.95) 100%);
+      }
+      .hero-overlay-light {
+        background:
+          radial-gradient(circle at 50% 42%, rgba(220, 235, 250, 0.3), transparent 28%),
+          radial-gradient(circle at 20% 20%, rgba(200, 230, 255, 0.2), transparent 30%),
+          radial-gradient(circle at 80% 24%, rgba(200, 225, 250, 0.15), transparent 30%),
+          linear-gradient(180deg, rgba(244, 245, 248, 0.75) 0%, rgba(244, 245, 248, 0.88) 55%, rgba(244, 245, 248, 0.95) 100%) !important;
+      }
+      .hero-overlay::before,
+      .hero-overlay::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        width: 92px;
+        height: 140px;
+        opacity: 0.5;
+        background:
+          repeating-linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.08) 0,
+            rgba(255, 255, 255, 0.08) 10px,
+            transparent 10px,
+            transparent 22px
+          );
+        clip-path: polygon(0 0, 100% 0, 100% 78%, 70% 100%, 40% 72%, 0 100%);
+      }
+      .hero-overlay::before { left: 0; }
+      .hero-overlay::after {
+        right: 0;
+        transform: scaleX(-1);
+      }
+      .hero-feed-column {
+        position: absolute;
+        top: 9vh;
+        bottom: 9vh;
+        width: min(26vw, 320px);
+        overflow: hidden;
+        mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+        -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+      }
+      .hero-feed-column.left { left: 4vw; }
+      .hero-feed-column.right { right: 4vw; }
+      .hero-feed-track {
+        --feed-gap: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--feed-gap);
+        animation: heroFeedRise var(--dur) linear infinite;
+        will-change: transform;
+      }
+      .hero-feed-card {
+        width: 100%;
+        padding: 14px 16px;
+        border-radius: 18px;
+        backdrop-filter: blur(12px);
+        opacity: 0.94;
+        position: relative;
+      }
+      .hero-feed-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: linear-gradient(135deg, rgba(255,255,255,0.05), transparent 55%);
+        pointer-events: none;
+      }
+      .hero-scroll-indicator {
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+      }
     </style>
   </head>
   <body>
@@ -127,7 +227,7 @@
         {
           title: 'Cisco Hybrid Mesh Firewall',
           text: "It's 8:30 AM - The new AI chatbot for your hybrid finance app just went live\n\nYour SOC gets an alert: it reports unusual traffic patterns from the chatbot's backend.\n\nYou are under attack\n\nThis is dangerous because your finance app contains confidential data and allows traffic to move between your cloud and on-premises datacenters.",
-          image: 'images/1.png',
+          video: 'images/MockupVideo.mp4',
         },
         {
           title: 'PHASE 1: DISCOVER - Start the clock - You need to move fast',
@@ -214,7 +314,7 @@
             className="theme-toggle"
             onClick={onToggle}
             style={{
-              background: isDark ? 'rgba(0,5,56,0.75)' : 'rgba(255,255,255,0.8)',
+              background: isDark ? 'rgba(13,13,13,0.8)' : 'rgba(255,255,255,0.8)',
               borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)',
               boxShadow: isDark
                 ? '0 2px 16px rgba(0,0,0,0.4)'
@@ -223,7 +323,7 @@
           >
             <div
               className="toggle-track"
-              style={{ background: isDark ? 'rgb(13,39,77)' : 'rgb(231,232,233)' }}
+              style={{ background: isDark ? 'rgb(38,38,38)' : 'rgb(231,232,233)' }}
             >
               <div
                 className="toggle-thumb"
@@ -296,13 +396,13 @@
           window.addEventListener('resize', resize);
 
           const blobs = [
-            { xr: 0.15, yr: 0.25, r: 600, px: 0,   py: 1.2, sx: 0.18, sy: 0.25, c: isDark ? [0, 81, 175]   : [182,217,242] },
-            { xr: 0.80, yr: 0.45, r: 550, px: 2.1, py: 0.5, sx: 0.22, sy: 0.15, c: isDark ? [13, 39, 77]   : [206,230,252] },
-            { xr: 0.45, yr: 0.08, r: 480, px: 4.0, py: 3.0, sx: 0.14, sy: 0.20, c: isDark ? [0, 112, 210]  : [182,217,242] },
-            { xr: 0.10, yr: 0.80, r: 420, px: 1.5, py: 4.2, sx: 0.20, sy: 0.18, c: isDark ? [0, 51, 120]   : [206,230,252] },
-            { xr: 0.60, yr: 0.75, r: 500, px: 3.3, py: 2.0, sx: 0.16, sy: 0.22, c: isDark ? [13, 39, 77]   : [230,241,252] },
-            { xr: 0.90, yr: 0.15, r: 380, px: 5.0, py: 1.0, sx: 0.24, sy: 0.14, c: isDark ? [0, 81, 175]   : [182,217,242] },
-            { xr: 0.35, yr: 0.55, r: 450, px: 1.0, py: 2.5, sx: 0.12, sy: 0.19, c: isDark ? [0, 60, 150]   : [195,225,250] },
+            { xr: 0.15, yr: 0.25, r: 600, px: 0,   py: 1.2, sx: 0.18, sy: 0.25, c: isDark ? [30, 30, 30]   : [182,217,242] },
+            { xr: 0.80, yr: 0.45, r: 550, px: 2.1, py: 0.5, sx: 0.22, sy: 0.15, c: isDark ? [20, 20, 20]   : [206,230,252] },
+            { xr: 0.45, yr: 0.08, r: 480, px: 4.0, py: 3.0, sx: 0.14, sy: 0.20, c: isDark ? [0, 80, 120]   : [182,217,242] },
+            { xr: 0.10, yr: 0.80, r: 420, px: 1.5, py: 4.2, sx: 0.20, sy: 0.18, c: isDark ? [25, 25, 25]   : [206,230,252] },
+            { xr: 0.60, yr: 0.75, r: 500, px: 3.3, py: 2.0, sx: 0.16, sy: 0.22, c: isDark ? [15, 15, 15]   : [230,241,252] },
+            { xr: 0.90, yr: 0.15, r: 380, px: 5.0, py: 1.0, sx: 0.24, sy: 0.14, c: isDark ? [0, 60, 90]    : [182,217,242] },
+            { xr: 0.35, yr: 0.55, r: 450, px: 1.0, py: 2.5, sx: 0.12, sy: 0.19, c: isDark ? [20, 20, 20]   : [195,225,250] },
           ];
 
           function draw() {
@@ -331,9 +431,9 @@
               ctx.fillRect(0, 0, w, h);
             });
 
-            const dotRgb  = isDark ? '182,217,242' : '0,81,175';
-            const lineMax = isDark ? 0.1 : 0.07;
-            const dotA    = isDark ? 0.2 : 0.14;
+            const dotRgb  = isDark ? '120,120,120' : '0,81,175';
+            const lineMax = isDark ? 0.06 : 0.07;
+            const dotA    = isDark ? 0.12 : 0.14;
             const maxDist = 115;
 
             dots.forEach(d => {
@@ -405,66 +505,8 @@
         );
       }
 
-      /* ---------- F1 Circuit Nav ---------- */
+      /* ---------- Side Bar Nav ---------- */
       function DotNav({ count, activeIndex, onJump, isDark }) {
-        const W = 380, H = 200;
-
-        const circuit = [
-          { x: 150, y: 180 },
-          { x: 110, y: 170 },
-          { x: 70,  y: 155 },
-          { x: 40,  y: 130 },
-          { x: 25,  y: 100 },
-          { x: 30,  y: 68 },
-          { x: 55,  y: 40 },
-          { x: 95,  y: 20 },
-          { x: 145, y: 15 },
-          { x: 195, y: 25 },
-          { x: 240, y: 45 },
-          { x: 280, y: 60 },
-          { x: 330, y: 55 },
-          { x: 355, y: 75 },
-          { x: 355, y: 110 },
-          { x: 330, y: 140 },
-          { x: 280, y: 165 },
-        ];
-
-        const points = circuit.slice(0, count);
-
-        function smoothPath(pts, close) {
-          if (pts.length < 2) return '';
-          let d = `M ${pts[0].x} ${pts[0].y}`;
-          for (let i = 1; i < pts.length; i++) {
-            const p0 = pts[i - 1];
-            const p1 = pts[i];
-            const mx = (p0.x + p1.x) / 2;
-            const my = (p0.y + p1.y) / 2;
-            d += ` Q ${p0.x} ${p0.y}, ${mx} ${my}`;
-          }
-          const last = pts[pts.length - 1];
-          d += ` L ${last.x} ${last.y}`;
-          if (close) {
-            const first = pts[0];
-            const mx = (last.x + first.x) / 2;
-            const my = (last.y + first.y) / 2;
-            d += ` Q ${last.x} ${last.y}, ${mx} ${my} L ${first.x} ${first.y}`;
-          }
-          return d;
-        }
-
-        const fullPath = smoothPath(points, true);
-        const pastPath = activeIndex > 0 ? smoothPath(points.slice(0, activeIndex + 1), false) : '';
-
-        const trackBg = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.06)';
-        const labelCol = isDark ? 'rgba(182,217,242,0.55)' : 'rgba(0,81,175,0.45)';
-
-        const phaseColors = {
-          discover: '#00BCEB',
-          protect:  '#F59E0B',
-          monitor:  '#22C55E',
-          intro:    isDark ? 'rgba(182,217,242,0.5)' : 'rgba(0,112,210,0.4)',
-        };
-
         function getPhase(idx) {
           if (idx <= 1) return 'intro';
           if (idx >= 2 && idx <= 7) return 'discover';
@@ -473,7 +515,7 @@
           return 'intro';
         }
 
-        function getSegmentColor(idx) {
+        function getColor(idx) {
           const phase = getPhase(idx);
           if (phase === 'discover') return isDark ? '#00BCEB' : '#0077C8';
           if (phase === 'protect') return isDark ? '#F59E0B' : '#D97706';
@@ -481,98 +523,40 @@
           return isDark ? '#00BCEB' : '#0070D2';
         }
 
-        const pastSegments = [];
-        if (activeIndex > 0) {
-          let segStart = 0;
-          let currentColor = getSegmentColor(0);
-          for (let i = 1; i <= activeIndex; i++) {
-            const col = getSegmentColor(i);
-            if (col !== currentColor || i === activeIndex) {
-              const end = col !== currentColor ? i : i + 1;
-              pastSegments.push({
-                path: smoothPath(points.slice(segStart, Math.min(end, points.length)), false),
-                color: currentColor,
-              });
-              if (col !== currentColor) {
-                segStart = i;
-                currentColor = col;
-                if (i === activeIndex) {
-                  pastSegments.push({
-                    path: smoothPath(points.slice(segStart, segStart + 1), false),
-                    color: currentColor,
-                  });
-                }
-              }
-            }
-          }
-        }
+        const dimBg = isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)';
 
         return (
-          <div className="fixed bottom-3 left-3 z-50" style={{ width: W + 10, height: H + 20 }}>
-            <svg width={W + 10} height={H + 10} viewBox={`-5 -5 ${W+10} ${H+10}`}>
-              <path d={fullPath} fill="none" stroke={trackBg} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d={fullPath} fill="none" stroke={trackBg} strokeWidth="5" strokeLinecap="round" strokeLinejoin="round"
-                strokeDasharray="2 6" />
+          <div
+            className="fixed z-50 flex flex-col items-center gap-[5px]"
+            style={{
+              left: 16,
+              top: '50%',
+              transform: 'translateY(-50%)',
+            }}
+          >
+            {Array.from({ length: count }).map((_, idx) => {
+              const isActive = idx === activeIndex;
+              const isPast = idx < activeIndex;
+              const col = getColor(idx);
 
-              {pastSegments.map((seg, i) => (
-                <path key={i} d={seg.path} fill="none" stroke={seg.color} strokeWidth="4"
-                  strokeLinecap="round" strokeLinejoin="round" opacity="0.7" />
-              ))}
-
-              {points.map((pt, idx) => {
-                const isActive = idx === activeIndex;
-                const isPast = idx < activeIndex;
-                const phase = getPhase(idx);
-                const col = isActive || isPast ? getSegmentColor(idx) : trackBg;
-
-                return (
-                  <g key={idx} onClick={() => onJump(idx)} style={{ cursor: 'pointer' }}>
-                    {isActive && (
-                      <React.Fragment>
-                        <circle cx={pt.x} cy={pt.y} r="13" fill="none" stroke={col} strokeWidth="1.5" opacity="0.35" />
-                        <circle cx={pt.x} cy={pt.y} r="18" fill="none" stroke={col} strokeWidth="0.5" opacity="0.15" />
-                      </React.Fragment>
-                    )}
-
-                    <circle cx={pt.x} cy={pt.y} r={isActive ? 7 : isPast ? 4.5 : 3.5}
-                      fill={isActive || isPast ? col : (isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.06)')}
-                      stroke={isDark ? 'rgba(0,0,0,0.3)' : 'rgba(255,255,255,0.8)'} strokeWidth="1"
-                    />
-
-                    {isActive && (
-                      <circle cx={pt.x} cy={pt.y} r="7" fill={col}
-                        style={{ filter: `drop-shadow(0 0 8px ${col})` }} />
-                    )}
-
-                    <text x={pt.x} y={pt.y - (isActive ? 16 : 10)}
-                      textAnchor="middle" fontSize={isActive ? '8' : '6.5'}
-                      fontFamily="monospace" fontWeight={isActive ? '700' : '500'}
-                      fill={isActive ? col : isPast ? labelCol : (isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.12)')}
-                    >
-                      {String(idx + 1).padStart(2, '0')}
-                    </text>
-                  </g>
-                );
-              })}
-
-              <g transform={`translate(${points[0].x + 12}, ${points[0].y - 2})`}>
-                {[0,1,2,3].map(i => (
-                  <rect key={i} x={(i % 2) * 3} y={Math.floor(i / 2) * 3} width="3" height="3"
-                    fill={i % 2 === Math.floor(i / 2) % 2
-                      ? (isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.5)')
-                      : (isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.1)')
-                    } />
-                ))}
-              </g>
-            </svg>
-
-            <div style={{
-              position: 'absolute', bottom: 0, right: 8,
-              fontSize: '8px', fontFamily: 'monospace', fontWeight: 600,
-              color: labelCol, letterSpacing: '0.12em', textTransform: 'uppercase',
-            }}>
-              {getPhase(activeIndex) !== 'intro' ? getPhase(activeIndex) : 'start'} · {String(activeIndex + 1).padStart(2, '0')}/{String(count).padStart(2, '0')}
-            </div>
+              return (
+                <div
+                  key={idx}
+                  onClick={() => onJump(idx)}
+                  style={{
+                    width: 4,
+                    height: isActive ? 28 : 14,
+                    borderRadius: 2,
+                    background: isActive ? col : isPast ? col : dimBg,
+                    opacity: isActive ? 1 : isPast ? 0.55 : 0.35,
+                    cursor: 'pointer',
+                    transition: 'all 0.35s ease',
+                    boxShadow: isActive ? `0 0 8px ${col}` : 'none',
+                  }}
+                  title={`Slide ${idx + 1}`}
+                />
+              );
+            })}
           </div>
         );
       }
@@ -609,7 +593,6 @@
 
         /* ---- Intro ---- */
         if (custom === 'intro') {
-          const [activeNotification, setActiveNotification] = React.useState(0);
           const notifications = [
             { icon: 'N', iconColor: '#3b82f6', source: 'Cyber News', message: "Dev teams juggling timelines and security requirements", time: 'Just now' },
             { icon: 'N', iconColor: '#3b82f6', source: 'Network Security News', message: "Ransomware is more ruthless than ever", time: 'Just now' },
@@ -622,20 +605,18 @@
             { icon: 'F', iconColor: '#10b981', source: 'Cyber Security News', message: "Costs can top $1B from cyberattacks across industries", time: 'Just now' },
             { icon: '💬', iconColor: '#8b5cf6', source: 'Slack · Prajakta', message: "Compliance team noticed a shadow IT app collecting customer data", time: 'Just now' },
           ];
-
-          React.useEffect(() => {
-            const interval = setInterval(() => {
-              setActiveNotification(prev => (prev + 1) % notifications.length);
-            }, 3000);
-            return () => clearInterval(interval);
-          }, []);
-
-          const notifBgActive = isDark ? 'rgba(0,5,56,0.85)' : 'rgba(255,255,255,0.95)';
-          const notifBgIdle   = isDark ? 'rgba(0,5,56,0.35)' : 'rgba(255,255,255,0.5)';
-          const notifText     = isDark ? 'var(--fz-color-neutral-2)' : 'var(--fz-color-neutral-5)';
-          const notifSub      = isDark ? 'var(--fz-color-neutral-3)' : 'var(--fz-color-neutral-4)';
-          const headingColor  = isDark ? 'var(--fz-color-neutral-0)' : 'var(--fz-color-neutral-5)';
-          const subColor      = isDark ? 'var(--fz-color-primary-3)' : 'var(--fz-color-neutral-4)';
+          const notifBg      = isDark ? 'rgba(26,26,26,0.65)' : 'rgba(255,255,255,0.82)';
+          const notifBorder  = isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.06)';
+          const notifShadow  = isDark ? '0 16px 60px rgba(0,0,0,0.28)' : '0 4px 20px rgba(0,0,0,0.08)';
+          const notifText    = isDark ? 'rgba(255,255,255,0.9)' : '#1a202c';
+          const notifSub     = isDark ? 'rgba(180,180,180,0.7)' : 'rgba(0,0,0,0.45)';
+          const headingColor = isDark ? '#F2F6FB' : 'var(--fz-color-neutral-5)';
+          const eyebrowColor = isDark ? '#7DD3FC' : 'var(--fz-color-primary-5)';
+          const bodyColor    = isDark ? 'rgba(226,232,240,0.82)' : 'var(--fz-color-neutral-4)';
+          const leftCards = notifications.slice(0, 5);
+          const rightCards = notifications.slice(5);
+          const leftFeed = [...leftCards, ...leftCards];
+          const rightFeed = [...rightCards, ...rightCards];
 
           return (
             <section
@@ -644,64 +625,112 @@
               className="h-screen relative overflow-hidden"
               style={{ background: 'transparent' }}
             >
-              <div className="absolute inset-0 pointer-events-none" style={{zIndex: 2}}>
-                {notifications.map((notif, idx) => {
-                  const positions = [
-                    { top: '10%', left: '5%' }, { top: '20%', left: '8%' },
-                    { top: '30%', left: '6%' }, { top: '40%', left: '4%' },
-                    { top: '50%', left: '7%' }, { top: '15%', right: '5%' },
-                    { top: '25%', right: '8%' }, { top: '35%', right: '6%' },
-                    { top: '45%', right: '4%' }, { top: '55%', right: '7%' },
-                  ];
-                  const isActive = idx === activeNotification;
-                  return (
-                    <div
-                      key={idx}
-                      className="rounded-lg p-3 max-w-xs shadow-lg transition-all duration-500"
-                      style={{
-                        position: 'absolute',
-                        ...positions[idx % positions.length],
-                        zIndex: 2,
-                        opacity: isActive ? 1 : 0.3,
-                        transform: isActive ? 'scale(1.05)' : 'scale(1)',
-                        backgroundColor: isActive ? notifBgActive : notifBgIdle,
-                        border: isDark ? 'none' : '1px solid rgba(0,0,0,0.07)',
-                      }}
-                    >
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-sm font-bold" style={{color: notif.iconColor}}>{notif.icon}</span>
-                        <span className="text-xs font-semibold" style={{color: notifSub}}>{notif.source}</span>
-                        <span className="text-xs ml-auto" style={{color: notifSub, opacity: 0.7}}>{notif.time}</span>
-                      </div>
-                      <div className="text-xs" style={{color: notifText}}>{notif.message}</div>
-                    </div>
-                  );
-                })}
+              <div className="hero-frame" style={{ zIndex: 1 }}>
+                <video
+                  className="hero-video"
+                  src="banner/3249672-uhd_3840_2160_25fps.mp4"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  style={{ filter: isDark ? 'blur(3px) saturate(0.72) brightness(0.4)' : 'blur(3px) saturate(0.6) brightness(1.1)' }}
+                />
+                <div className={isDark ? 'hero-overlay' : 'hero-overlay hero-overlay-light'} />
               </div>
 
-              <div className="absolute inset-0 flex flex-col items-center justify-center" style={{zIndex: 10}}>
-                <img src="banner/Cisco-logo.png" alt="Cisco Logo" className="h-16 md:h-20 w-auto mb-8" />
-                <div className="text-center max-w-3xl px-4">
-                  <div className="text-lg md:text-xl mb-1" style={{color: subColor, fontWeight: 'var(--fz-weight-regular)'}}>
-                    You are a security leader of a
+              <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 4 }}>
+                <div className="hero-feed-column left">
+                  <div className="hero-feed-track" style={{ '--dur': '22s' }}>
+                    {leftFeed.map((notif, idx) => {
+                      return (
+                        <div
+                          key={`left-${idx}`}
+                          className="hero-feed-card"
+                          style={{ backgroundColor: notifBg, border: notifBorder, boxShadow: notifShadow }}
+                        >
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-sm font-bold" style={{ color: notif.iconColor }}>{notif.icon}</span>
+                            <span className="text-xs font-semibold tracking-wide uppercase" style={{ color: notifSub }}>{notif.source}</span>
+                            <span className="text-[11px] ml-auto" style={{ color: notifSub, opacity: 0.72 }}>{notif.time}</span>
+                          </div>
+                          <div className="text-[13px] leading-5" style={{ color: notifText }}>{notif.message}</div>
+                        </div>
+                      );
+                    })}
                   </div>
-                  <h1 className="text-3xl md:text-5xl lg:text-6xl mb-4 leading-tight" style={{color: headingColor, fontWeight: 'var(--fz-weight-light)'}}>
-                    Hybrid Datacenter
+                </div>
+                <div className="hero-feed-column right">
+                  <div className="hero-feed-track" style={{ '--dur': '24s' }}>
+                    {rightFeed.map((notif, idx) => {
+                      return (
+                        <div
+                          key={`right-${idx}`}
+                          className="hero-feed-card"
+                          style={{ backgroundColor: notifBg, border: notifBorder, boxShadow: notifShadow }}
+                        >
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-sm font-bold" style={{ color: notif.iconColor }}>{notif.icon}</span>
+                            <span className="text-xs font-semibold tracking-wide uppercase" style={{ color: notifSub }}>{notif.source}</span>
+                            <span className="text-[11px] ml-auto" style={{ color: notifSub, opacity: 0.72 }}>{notif.time}</span>
+                          </div>
+                          <div className="text-[13px] leading-5" style={{ color: notifText }}>{notif.message}</div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              <div className="absolute inset-0 flex flex-col items-center justify-center px-6" style={{ zIndex: 10 }}>
+                <img src="banner/Cisco-logo.png" alt="Cisco Logo" className="h-12 md:h-14 w-auto mb-10 opacity-95" />
+                <div className="text-center max-w-3xl">
+                  <div
+                    className="text-sm md:text-base mb-4 tracking-[0.34em] uppercase"
+                    style={{ color: eyebrowColor, fontWeight: 'var(--fz-weight-semi-bold)' }}
+                  >
+                    Cisco Hybrid Mesh Firewall
+                  </div>
+                  <h1
+                    className="text-4xl md:text-6xl lg:text-7xl leading-[0.95] mb-6"
+                    style={{ color: headingColor, fontWeight: 'var(--fz-weight-light)' }}
+                  >
+                    A Day in the Life
+                    <br />
+                    of a Hybrid Security Leader
                   </h1>
-                  <div className="text-xl md:text-2xl mb-1" style={{color: subColor, fontWeight: 'var(--fz-weight-medium)'}}>
-                    running critical applications using AI
-                  </div>
-                  <div className="text-base md:text-lg" style={{color: subColor, fontWeight: 'var(--fz-weight-regular)'}}>
-                    This is your day
+
+                  <div className="flex items-center justify-center gap-3 mt-2 mb-6" style={{ animation: 'bounce 2s infinite' }}>
+                    <svg width="28" height="42" viewBox="0 0 28 42" fill="none" style={{ opacity: 0.7 }}>
+                      <rect x="1" y="1" width="26" height="40" rx="13" stroke={isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.35)'} strokeWidth="2" />
+                      <circle cx="14" cy="12" r="3" fill={isDark ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.4)'}>
+                        <animate attributeName="cy" values="12;22;12" dur="1.8s" repeatCount="indefinite" />
+                        <animate attributeName="opacity" values="1;0.3;1" dur="1.8s" repeatCount="indefinite" />
+                      </circle>
+                    </svg>
+                    <span
+                      className="text-[13px] tracking-[0.2em] uppercase"
+                      style={{ color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)', fontWeight: 500 }}
+                    >
+                      Scroll to begin
+                    </span>
                   </div>
                 </div>
               </div>
 
               <div
-                className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-sm"
-                style={{zIndex: 10, animation: 'bounce 2s infinite', color: isDark ? 'rgba(255,255,255,0.5)' : 'rgba(0,0,0,0.4)'}}
+                className="absolute bottom-0 left-1/2 transform -translate-x-1/2"
+                style={{ zIndex: 8, width: 'min(62vw, 740px)' }}
               >
-                Scroll to begin
+                <img
+                  src="images/l-1.webp"
+                  alt=""
+                  className="w-full"
+                  style={{
+                    display: 'block',
+                    filter: isDark ? 'brightness(0.85) drop-shadow(0 -20px 60px rgba(0,0,0,0.5))' : 'brightness(1) drop-shadow(0 -16px 50px rgba(0,0,0,0.2))',
+                  }}
+                />
               </div>
             </section>
           );
@@ -710,7 +739,7 @@
         /* ---- Outro ---- */
         if (custom) {
           const headingColor = isDark ? 'var(--fz-color-primary-3)' : 'var(--fz-color-primary-7)';
-          const cardBg       = isDark ? 'rgba(0,5,56,0.4)' : 'rgba(255,255,255,0.7)';
+          const cardBg       = isDark ? 'rgba(26,26,26,0.6)' : 'rgba(255,255,255,0.7)';
           const cardText     = isDark ? 'var(--fz-color-neutral-0)' : 'var(--fz-color-neutral-5)';
           const listText     = isDark ? 'var(--fz-color-neutral-2)' : 'var(--fz-color-neutral-4)';
           const btnColor     = isDark ? 'var(--fz-color-primary-4)' : 'var(--fz-color-primary-5)';
@@ -824,7 +853,7 @@
           <header
             className="sticky top-0 z-50 flex justify-center items-center py-4 shadow-sm"
             style={{
-              background: isDark ? 'rgba(0,5,56,0.88)' : 'rgba(244,245,248,0.9)',
+              background: isDark ? 'rgba(13,13,13,0.92)' : 'rgba(244,245,248,0.9)',
               backdropFilter: 'blur(12px)',
               borderBottom: isDark ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.07)',
               transition: 'all 0.4s ease',
@@ -842,8 +871,8 @@
         const isScrolling = React.useRef(false);
 
         React.useEffect(() => {
-          document.body.style.background = isDark ? 'rgb(0,5,56)' : 'var(--fz-color-neutral-1)';
-          document.body.style.color = isDark ? 'var(--fz-color-neutral-1)' : 'var(--fz-color-neutral-5)';
+          document.body.style.background = isDark ? '#0d0d0d' : 'var(--fz-color-neutral-1)';
+          document.body.style.color = isDark ? '#f5f5f5' : 'var(--fz-color-neutral-5)';
         }, [isDark]);
 
         React.useEffect(() => {
