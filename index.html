@@ -227,82 +227,82 @@
         {
           title: 'Cisco Hybrid Mesh Firewall',
           text: "It's 8:30 AM - The new AI chatbot for your hybrid finance app just went live\n\nYour SOC gets an alert: it reports unusual traffic patterns from the chatbot's backend.\n\nYou are under attack\n\nThis is dangerous because your finance app contains confidential data and allows traffic to move between your cloud and on-premises datacenters.",
-          video: 'images/MockupVideo.mp4',
+          image: 'images/1.png',
         },
         {
           title: 'PHASE 1: DISCOVER - Start the clock - You need to move fast',
           text: "You need to contain this attack before the attacker pivots from the cloud app to your on-prem finance database.\n\nFortunately, you have Cisco Hybrid Mesh Firewall so you can see intent, context, and impact – not just packets.\n\nYou open your Cisco Security Cloud Control dashboard.",
-          video: 'banner/Cinematic_Laptop_Product_Shot_Generation.mp4',
+          video: 'images/MockupVideo.mp4',
         },
         {
           title: 'PHASE 1: DISCOVER - You spot the attack before it spreads',
           text: "You see that unusual prompts in your finance app AI chatbot have been flagged.\n\nAnd you see that your AI chatbot is getting the details about the backend connectivity in your finance app. Attackers use this to breach your network and move laterally.",
-          image: 'images/3.png',
+          video: 'banner/Cinematic_Laptop_Product_Shot_Generation.mp4',
         },
         {
           title: 'PHASE 1: DISCOVER - You check your finance app traffic for suspicious activity',
           text: "You see problematic traffic.\n\nYou find microservice interactions in your cloud finance app and between your cloud and your on-premises data centers. It looks very suspicious.",
-          image: 'images/4.png',
+          image: 'images/3.png',
         },
         {
           title: 'PHASE 1: DISCOVER - You find suspicious activity within the finance app',
           text: "You spot traffic flowing in the wrong direction from processing to front-end.",
-          image: 'images/5.png',
+          image: 'images/4.png',
         },
         {
           title: 'PHASE 1: DISCOVER - It looks like lateral movement',
           text: "Your back-end pod is connecting directly to your processing and front-end, indicating unwanted lateral movement from back-end to front-end.",
-          image: 'images/6.png',
+          image: 'images/5.png',
         },
         {
           title: 'PHASE 1: DISCOVER - The attacker is moving laterally into your datacenter',
           text: "You see the back-end-proxy pod in your cloud connecting directly to the finance app in your on-premises data center. This could be dangerous lateral movement.",
-          image: 'images/8.png',
+          image: 'images/6.png',
         },
         {
           title: 'PHASE 2: PROTECT - Your system knows your LLM weaknesses',
           text: "Your AI algorithmic red-teaming already identified your LLM weaknesses so your system already has guardrails in place.\n\nIt automatically blocks this attack.",
-          image: 'images/7.png',
+          image: 'images/8.png',
         },
         {
           title: 'PHASE 2: PROTECT - You must stop the suspicious lateral movement',
           text: "Your system automatically blocks the suspicious lateral traffic between microservices.",
-          image: 'images/9.png',
+          image: 'images/7.png',
         },
         {
           title: 'PHASE 2: PROTECT - You must stop the lateral threat to your on-premises datacenter',
           text: "Deep in the network, your smart switches and secure firewalls work together to enforce security. They can block this lateral threat movement from cloud app to on-premises datacenter app with segmentation.",
-          image: 'images/10.png',
+          image: 'images/9.png',
         },
         {
           title: 'PHASE 2: PROTECT - You must find the malicious traffic',
           text: "You don't want to block legitimate traffic. So before your segmentation blocks traffic, your TLS traffic is selectively inspected by your Encrypted Visibility Engine.",
-          image: 'images/11.png',
+          image: 'images/10.png',
         },
         {
           title: 'PHASE 2: PROTECT - You block only malicious traffic flows',
           text: "Your safe traffic flows are allowed to continue.\n\nUncertain flows are decrypted for advanced threat analysis to catch both known and unknown attacks.\n\nMalicious flows are automatically blocked.",
-          image: 'images/12.png',
+          image: 'images/11.png',
         },
         {
           title: 'PHASE 3: MONITOR - You protect your AI environment',
           text: "Your runtime guardrails continuously monitor the AI chatbot for new injection techniques. They give you actionable recommendations to further harden defenses.",
-          image: 'images/13.png',
+          image: 'images/12.png',
         },
         {
           title: 'PHASE 3: MONITOR - You protect your workloads',
           text: "Your runtime protection stops exploits of your workloads and prevents lateral movement.",
-          image: 'images/14.png',
+          image: 'images/13.png',
         },
         {
           title: 'PHASE 3: MONITOR - You block attacks without disrupting operations',
           text: "Your selective decryption ensures that you stop both known and unknown threats while keeping operations up and running smoothly.",
-          image: 'images/15.png',
+          image: 'images/14.png',
         },
         {
           title: 'Mission Accomplished!',
           text: "You stopped the attack. And you did it because you have full visibility and control across your cloud, on-premises, and hybrid environments. Lateral movement was blocked. Encrypted traffic was understood. Your AI app stayed online and protected.\n\nBecause with Cisco, your security isn't just reactive, it's everywhere your apps live.",
-          image: 'images/16.png',
+          image: 'images/15.png',
         },
         { title: 'Ready for Secure Hybrid Networking?', custom: true },
       ];
@@ -314,7 +314,7 @@
             className="theme-toggle"
             onClick={onToggle}
             style={{
-              background: isDark ? 'rgba(13,13,13,0.8)' : 'rgba(255,255,255,0.8)',
+              background: isDark ? 'rgba(10,22,40,0.85)' : 'rgba(255,255,255,0.8)',
               borderColor: isDark ? 'rgba(255,255,255,0.12)' : 'rgba(0,0,0,0.12)',
               boxShadow: isDark
                 ? '0 2px 16px rgba(0,0,0,0.4)'
@@ -352,36 +352,30 @@
           const ctx = canvas.getContext('2d');
           let animId;
           let t = 0;
-          let dots = [];
-          const spacing = 90;
-          const mouse = { x: -9999, y: -9999 };
-          const mouseRadius = 250;
-          const mouseForce = 55;
 
-          function onMouseMove(e) { mouse.x = e.clientX; mouse.y = e.clientY; }
-          function onMouseLeave() { mouse.x = -9999; mouse.y = -9999; }
-          window.addEventListener('mousemove', onMouseMove);
-          window.addEventListener('mouseleave', onMouseLeave);
+          const stars = [];
+          const STAR_COUNT = 180;
+          for (let i = 0; i < STAR_COUNT; i++) {
+            stars.push({
+              x: Math.random(),
+              y: Math.random(),
+              r: 0.4 + Math.random() * 1.2,
+              phase: Math.random() * Math.PI * 2,
+              speed: 0.3 + Math.random() * 0.7,
+              brightness: 0.3 + Math.random() * 0.7,
+            });
+          }
 
-          function buildDots() {
-            dots = [];
-            const w = window.innerWidth;
-            const h = window.innerHeight;
-            const cols = Math.ceil(w / spacing) + 1;
-            const rows = Math.ceil(h / spacing) + 1;
-            for (let r = 0; r < rows; r++) {
-              for (let c = 0; c < cols; c++) {
-                dots.push({
-                  bx: c * spacing + (Math.random() - 0.5) * 30,
-                  by: r * spacing + (Math.random() - 0.5) * 30,
-                  x: 0, y: 0,
-                  mx: 0, my: 0,
-                  phase: Math.random() * Math.PI * 2,
-                  speed: 0.4 + Math.random() * 0.6,
-                  rad: 1.2 + Math.random() * 0.8,
-                });
-              }
-            }
+          const sparkles = [];
+          const SPARKLE_COUNT = 3;
+          for (let i = 0; i < SPARKLE_COUNT; i++) {
+            sparkles.push({
+              x: 0.6 + Math.random() * 0.35,
+              y: 0.5 + Math.random() * 0.45,
+              phase: Math.random() * Math.PI * 2,
+              speed: 0.4 + Math.random() * 0.3,
+              size: 6 + Math.random() * 8,
+            });
           }
 
           function resize() {
@@ -390,100 +384,99 @@
             canvas.height = window.innerHeight * dpr;
             canvas.style.width = window.innerWidth + 'px';
             canvas.style.height = window.innerHeight + 'px';
-            buildDots();
           }
           resize();
           window.addEventListener('resize', resize);
 
-          const blobs = [
-            { xr: 0.15, yr: 0.25, r: 600, px: 0,   py: 1.2, sx: 0.18, sy: 0.25, c: isDark ? [30, 30, 30]   : [182,217,242] },
-            { xr: 0.80, yr: 0.45, r: 550, px: 2.1, py: 0.5, sx: 0.22, sy: 0.15, c: isDark ? [20, 20, 20]   : [206,230,252] },
-            { xr: 0.45, yr: 0.08, r: 480, px: 4.0, py: 3.0, sx: 0.14, sy: 0.20, c: isDark ? [0, 80, 120]   : [182,217,242] },
-            { xr: 0.10, yr: 0.80, r: 420, px: 1.5, py: 4.2, sx: 0.20, sy: 0.18, c: isDark ? [25, 25, 25]   : [206,230,252] },
-            { xr: 0.60, yr: 0.75, r: 500, px: 3.3, py: 2.0, sx: 0.16, sy: 0.22, c: isDark ? [15, 15, 15]   : [230,241,252] },
-            { xr: 0.90, yr: 0.15, r: 380, px: 5.0, py: 1.0, sx: 0.24, sy: 0.14, c: isDark ? [0, 60, 90]    : [182,217,242] },
-            { xr: 0.35, yr: 0.55, r: 450, px: 1.0, py: 2.5, sx: 0.12, sy: 0.19, c: isDark ? [20, 20, 20]   : [195,225,250] },
-          ];
+          function drawStar4(cx, cy, size, alpha) {
+            ctx.save();
+            ctx.globalAlpha = alpha;
+            ctx.fillStyle = '#c8b8e8';
+            ctx.beginPath();
+            const spikes = 4;
+            const outerR = size;
+            const innerR = size * 0.25;
+            for (let i = 0; i < spikes * 2; i++) {
+              const angle = (i * Math.PI) / spikes - Math.PI / 2;
+              const r = i % 2 === 0 ? outerR : innerR;
+              const sx = cx + Math.cos(angle) * r;
+              const sy = cy + Math.sin(angle) * r;
+              if (i === 0) ctx.moveTo(sx, sy);
+              else ctx.lineTo(sx, sy);
+            }
+            ctx.closePath();
+            ctx.fill();
+
+            const glow = ctx.createRadialGradient(cx, cy, 0, cx, cy, size * 2);
+            glow.addColorStop(0, `rgba(200,184,232,${alpha * 0.5})`);
+            glow.addColorStop(1, 'rgba(200,184,232,0)');
+            ctx.fillStyle = glow;
+            ctx.fillRect(cx - size * 2, cy - size * 2, size * 4, size * 4);
+            ctx.restore();
+          }
 
           function draw() {
-            t += 0.0015;
+            t += 0.003;
             const dpr = window.devicePixelRatio || 1;
             const w = window.innerWidth;
             const h = window.innerHeight;
 
             ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-            ctx.clearRect(0, 0, w, h);
 
-            blobs.forEach((b, i) => {
-              const drift = 160 + i * 20;
-              const bx = b.xr * w + Math.sin(t * b.sx + b.px) * drift + Math.cos(t * 0.13 + i * 1.7) * 40;
-              const by = b.yr * h + Math.cos(t * b.sy + b.py) * (drift * 0.7) + Math.sin(t * 0.17 + i * 2.3) * 30;
-              const pulse = b.r + Math.sin(t * 0.4 + i * 0.8) * 70 + Math.cos(t * 0.25 + i) * 30;
-              const grad = ctx.createRadialGradient(bx, by, 0, bx, by, pulse);
-              const [cr, cg, cb] = b.c;
-              const aBase = isDark ? 0.32 : 0.22;
-              grad.addColorStop(0,   `rgba(${cr},${cg},${cb},${aBase})`);
-              grad.addColorStop(0.2, `rgba(${cr},${cg},${cb},${aBase * 0.6})`);
-              grad.addColorStop(0.5, `rgba(${cr},${cg},${cb},${aBase * 0.2})`);
-              grad.addColorStop(0.75,`rgba(${cr},${cg},${cb},${aBase * 0.06})`);
-              grad.addColorStop(1,   `rgba(${cr},${cg},${cb},0)`);
+            if (isDark) {
+              const grad = ctx.createLinearGradient(0, 0, w, h);
+              grad.addColorStop(0, '#0a1628');
+              grad.addColorStop(0.3, '#0d1f3c');
+              grad.addColorStop(0.55, '#1a1a40');
+              grad.addColorStop(0.75, '#3d1f56');
+              grad.addColorStop(1, '#6b2a6e');
+            ctx.fillStyle = grad;
+            } else {
+              const grad = ctx.createLinearGradient(0, 0, w, h);
+              grad.addColorStop(0, '#e8f0fe');
+              grad.addColorStop(0.4, '#dce6f7');
+              grad.addColorStop(0.7, '#e8ddf5');
+              grad.addColorStop(1, '#f0e4f7');
               ctx.fillStyle = grad;
+            }
+            ctx.fillRect(0, 0, w, h);
+
+            if (isDark) {
+              const nebula = ctx.createRadialGradient(w * 0.7, h * 0.65, 0, w * 0.7, h * 0.65, Math.max(w, h) * 0.55);
+              nebula.addColorStop(0, 'rgba(120,40,120,0.25)');
+              nebula.addColorStop(0.4, 'rgba(80,25,90,0.15)');
+              nebula.addColorStop(1, 'rgba(0,0,0,0)');
+              ctx.fillStyle = nebula;
               ctx.fillRect(0, 0, w, h);
-            });
 
-            const dotRgb  = isDark ? '120,120,120' : '0,81,175';
-            const lineMax = isDark ? 0.06 : 0.07;
-            const dotA    = isDark ? 0.12 : 0.14;
-            const maxDist = 115;
-
-            dots.forEach(d => {
-              const baseX = d.bx + Math.sin(t * d.speed + d.phase) * 12;
-              const baseY = d.by + Math.cos(t * d.speed * 0.7 + d.phase) * 12;
-
-              const dx = baseX - mouse.x;
-              const dy = baseY - mouse.y;
-              const dist = Math.sqrt(dx * dx + dy * dy);
-
-              let pushX = 0, pushY = 0;
-              if (dist < mouseRadius && dist > 0) {
-                const strength = (1 - dist / mouseRadius);
-                const force = strength * strength * mouseForce;
-                pushX = (dx / dist) * force;
-                pushY = (dy / dist) * force;
-              }
-
-              d.mx += (pushX - d.mx) * 0.15;
-              d.my += (pushY - d.my) * 0.15;
-
-              d.x = baseX + d.mx;
-              d.y = baseY + d.my;
-            });
-
-            ctx.lineWidth = 0.5;
-            for (let i = 0; i < dots.length; i++) {
-              const a = dots[i];
-              for (let j = i + 1; j < dots.length; j++) {
-                const b = dots[j];
-                const dx = a.x - b.x;
-                const dy = a.y - b.y;
-                if (Math.abs(dx) > maxDist || Math.abs(dy) > maxDist) continue;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < maxDist) {
-                  ctx.strokeStyle = `rgba(${dotRgb},${(1 - dist / maxDist) * lineMax})`;
-                  ctx.beginPath();
-                  ctx.moveTo(a.x, a.y);
-                  ctx.lineTo(b.x, b.y);
-                  ctx.stroke();
-                }
-              }
+              const nebula2 = ctx.createRadialGradient(w * 0.2, h * 0.3, 0, w * 0.2, h * 0.3, Math.max(w, h) * 0.5);
+              nebula2.addColorStop(0, 'rgba(10,50,100,0.2)');
+              nebula2.addColorStop(0.5, 'rgba(5,30,60,0.1)');
+              nebula2.addColorStop(1, 'rgba(0,0,0,0)');
+              ctx.fillStyle = nebula2;
+              ctx.fillRect(0, 0, w, h);
             }
 
-            dots.forEach(d => {
+            const starAlphaBase = isDark ? 1 : 0.25;
+            stars.forEach(s => {
+              const twinkle = 0.4 + 0.6 * Math.sin(t * s.speed + s.phase);
+              const alpha = s.brightness * twinkle * starAlphaBase;
+              const sx = s.x * w;
+              const sy = s.y * h;
               ctx.beginPath();
-              ctx.arc(d.x, d.y, d.rad, 0, Math.PI * 2);
-              ctx.fillStyle = `rgba(${dotRgb},${dotA})`;
+              ctx.arc(sx, sy, s.r, 0, Math.PI * 2);
+              ctx.fillStyle = isDark
+                ? `rgba(200,200,220,${alpha})`
+                : `rgba(100,80,160,${alpha})`;
               ctx.fill();
             });
+
+            if (isDark) {
+              sparkles.forEach(sp => {
+                const pulse = 0.3 + 0.7 * ((Math.sin(t * sp.speed + sp.phase) + 1) / 2);
+                drawStar4(sp.x * w, sp.y * h, sp.size * pulse, pulse * 0.8);
+              });
+            }
 
             animId = requestAnimationFrame(draw);
           }
@@ -492,8 +485,6 @@
           return () => {
             cancelAnimationFrame(animId);
             window.removeEventListener('resize', resize);
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mouseleave', onMouseLeave);
           };
         }, [isDark]);
 
@@ -824,12 +815,12 @@
               )}
             </div>
             <div className="section-content-cisco flex justify-center items-start py-0 pl-10">
-              <div className="rounded-xl max-h-[88vh] w-full overflow-hidden flex justify-center items-center">
+              <div className="rounded-xl max-h-[72vh] w-full overflow-hidden flex justify-center items-center">
                 {image ? (
                   <img
                     src={image}
                     alt={title}
-                    className="object-contain w-full max-h-[88vh]"
+                    className="object-contain w-full max-h-[72vh]"
                     style={{ borderRadius: '0.75rem' }}
                   />
                 ) : video ? (
@@ -837,7 +828,7 @@
                     ref={videoRef}
                     src={video}
                     autoPlay muted playsInline preload="auto"
-                    className="object-cover w-full max-h-[88vh]"
+                    className="object-cover w-full max-h-[72vh]"
                     style={{ borderRadius: '0.75rem' }}
                   />
                 ) : null}
@@ -853,7 +844,7 @@
           <header
             className="sticky top-0 z-50 flex justify-center items-center py-4 shadow-sm"
             style={{
-              background: isDark ? 'rgba(13,13,13,0.92)' : 'rgba(244,245,248,0.9)',
+              background: isDark ? 'rgba(10,22,40,0.92)' : 'rgba(244,245,248,0.9)',
               backdropFilter: 'blur(12px)',
               borderBottom: isDark ? '1px solid rgba(255,255,255,0.05)' : '1px solid rgba(0,0,0,0.07)',
               transition: 'all 0.4s ease',
@@ -871,24 +862,32 @@
         const isScrolling = React.useRef(false);
 
         React.useEffect(() => {
-          document.body.style.background = isDark ? '#0d0d0d' : 'var(--fz-color-neutral-1)';
+          document.body.style.background = isDark ? '#0a1628' : 'var(--fz-color-neutral-1)';
           document.body.style.color = isDark ? '#f5f5f5' : 'var(--fz-color-neutral-5)';
         }, [isDark]);
+
+        const wheelAccum = React.useRef(0);
+        const WHEEL_THRESHOLD = 80;
+        const COOLDOWN = 1000;
 
         React.useEffect(() => {
           const handleWheel = (e) => {
             e.preventDefault();
             if (isScrolling.current) return;
+            wheelAccum.current += e.deltaY;
+            if (Math.abs(wheelAccum.current) < WHEEL_THRESHOLD) return;
+            const direction = wheelAccum.current > 0 ? 1 : -1;
+            wheelAccum.current = 0;
             isScrolling.current = true;
-            setTimeout(() => { isScrolling.current = false; }, 600);
-            if (e.deltaY > 0 && activeIndex < sections.length - 1) {
+            setTimeout(() => { isScrolling.current = false; }, COOLDOWN);
+            if (direction > 0 && activeIndex < sections.length - 1) {
               setActiveIndex(idx => Math.min(idx + 1, sections.length - 1));
-            } else if (e.deltaY < 0 && activeIndex > 0) {
+            } else if (direction < 0 && activeIndex > 0) {
               setActiveIndex(idx => Math.max(idx - 1, 0));
             }
           };
           window.addEventListener('wheel', handleWheel, { passive: false });
-          return () => window.removeEventListener('wheel', handleWheel);
+          return () => { window.removeEventListener('wheel', handleWheel); wheelAccum.current = 0; };
         }, [activeIndex]);
 
         const handleJump = idx => setActiveIndex(idx);
