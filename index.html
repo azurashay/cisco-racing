@@ -122,6 +122,32 @@
           transform: translateY(-50%);
         }
       }
+      @keyframes mediaFloatLeft {
+        0%, 100% {
+          transform: translate3d(0, 0, 0) rotate(-1deg) scale(1);
+        }
+        50% {
+          transform: translate3d(-10px, -18px, 0) rotate(1deg) scale(1.02);
+        }
+      }
+      @keyframes mediaFloatRight {
+        0%, 100% {
+          transform: translate3d(0, 0, 0) rotate(1deg) scale(1);
+        }
+        50% {
+          transform: translate3d(10px, -18px, 0) rotate(-1deg) scale(1.02);
+        }
+      }
+      @keyframes accentPulse {
+        0%, 100% {
+          opacity: 0.45;
+          transform: scale(0.94);
+        }
+        50% {
+          opacity: 0.85;
+          transform: scale(1.08);
+        }
+      }
       .hero-frame {
         position: absolute;
         inset: 0;
@@ -587,7 +613,7 @@
       }
 
       /* ---------- Section ---------- */
-      const Section = React.forwardRef(({ title, text, index, list, custom, image, video, isDark, chatBubbles }, ref) => {
+      const Section = React.forwardRef(({ title, text, index, list, custom, image, video, isDark, chatBubbles, animated }, ref) => {
         const [visible, setVisible] = React.useState(false);
         const localRef = React.useRef();
         const setRefs = el => {
@@ -878,20 +904,35 @@
         const textColor  = isDark ? 'var(--fz-color-neutral-3)' : 'var(--fz-color-neutral-4)';
         const divider    = isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.07)';
 
+        const isReversedLayout = index % 2 === 0;
+        const textOffsetX = isReversedLayout ? 110 : -110;
+        const mediaOffsetX = isReversedLayout ? -140 : 140;
+        const textBorderSide = isReversedLayout ? 'Left' : 'Right';
+        const textPaddingStyle = isReversedLayout
+          ? { paddingLeft: '2.75rem', paddingRight: '1rem' }
+          : { paddingLeft: '1rem', paddingRight: '2.75rem' };
+        const mediaPaddingStyle = isReversedLayout
+          ? { paddingLeft: '0.5rem', paddingRight: '2rem' }
+          : { paddingLeft: '2rem', paddingRight: '0.5rem' };
+        const glowAnchor = isReversedLayout ? { left: '-6%' } : { right: '-6%' };
+        const accentAnchor = isReversedLayout ? { left: '8%' } : { right: '8%' };
+
         const textStyle = {
           opacity: visible ? 1 : 0,
-          transform: visible ? 'translateY(0)' : 'translateY(24px)',
-          transition: 'opacity 0.38s ease, transform 0.38s ease',
-          transitionDelay: '0.15s',
+          transform: visible ? 'translate3d(0, 0, 0)' : `translate3d(${textOffsetX}px, 28px, 0)`,
+          filter: visible ? 'blur(0px)' : 'blur(8px)',
+          transition: 'opacity 0.45s ease, transform 0.82s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease',
+          transitionDelay: '0.08s',
         };
 
         const mediaStyle = {
           opacity: visible ? 1 : 0,
           transform: visible
             ? 'perspective(900px) translateX(0) rotateY(0deg) scale(1)'
-            : 'perspective(900px) translateX(60px) rotateY(8deg) scale(0.94)',
-          transition: 'opacity 0.5s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1)',
-          transitionDelay: '0s',
+            : `perspective(1200px) translateX(${mediaOffsetX}px) rotateY(${isReversedLayout ? '-14deg' : '14deg'}) scale(0.84)`,
+          filter: visible ? 'blur(0px)' : 'blur(12px)',
+          transition: 'opacity 0.45s ease, transform 0.95s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease',
+          transitionDelay: '0.04s',
         };
 
         return (
@@ -899,31 +940,115 @@
             ref={setRefs}
             dir="ltr"
             className="section-bg-cisco h-screen grid items-center px-8 md:px-16"
-            style={{ gridTemplateColumns: '1fr 2fr', gap: 0, background: 'transparent' }}
+            style={{
+              gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1.55fr)',
+              gap: 0,
+              background: 'transparent',
+              position: 'relative',
+              overflow: 'hidden',
+            }}
           >
             <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                top: '16%',
+                width: '34vw',
+                height: '34vw',
+                maxWidth: '520px',
+                maxHeight: '520px',
+                borderRadius: '999px',
+                background: isDark
+                  ? 'radial-gradient(circle, rgba(0,188,235,0.24) 0%, rgba(0,188,235,0.08) 36%, rgba(0,0,0,0) 72%)'
+                  : 'radial-gradient(circle, rgba(0,112,210,0.18) 0%, rgba(0,112,210,0.06) 36%, rgba(255,255,255,0) 72%)',
+                filter: 'blur(8px)',
+                pointerEvents: 'none',
+                opacity: visible ? 1 : 0,
+                transform: visible ? 'translate3d(0, 0, 0) scale(1)' : `translate3d(${isReversedLayout ? '-80px' : '80px'}, 0, 0) scale(0.72)`,
+                transition: 'opacity 0.55s ease, transform 1s cubic-bezier(0.16, 1, 0.3, 1)',
+                animation: visible ? 'accentPulse 5.5s ease-in-out infinite' : 'none',
+                ...glowAnchor,
+              }}
+            />
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                top: '50%',
+                width: '26vw',
+                minWidth: '220px',
+                maxWidth: '360px',
+                height: '1px',
+                background: isDark
+                  ? 'linear-gradient(90deg, rgba(0,188,235,0), rgba(0,188,235,0.8), rgba(0,188,235,0))'
+                  : 'linear-gradient(90deg, rgba(0,112,210,0), rgba(0,112,210,0.7), rgba(0,112,210,0))',
+                boxShadow: isDark ? '0 0 28px rgba(0,188,235,0.35)' : '0 0 24px rgba(0,112,210,0.25)',
+                opacity: visible ? 0.9 : 0,
+                transform: visible ? 'translateY(0)' : 'translateY(24px)',
+                transition: 'opacity 0.5s ease, transform 0.8s ease',
+                ...accentAnchor,
+              }}
+            />
+            <div
               className="section-content-cisco flex flex-col justify-center pl-4 pr-10"
-              style={{ borderRight: `1px solid ${divider}`, ...textStyle }}
+              style={{
+                order: isReversedLayout ? 2 : 1,
+                [`border${textBorderSide}`]: `1px solid ${divider}`,
+                ...textPaddingStyle,
+                ...textStyle,
+              }}
             >
               {phaseInfo && (
-                <span className={`phase-label ${phaseInfo.type}`}>
+                <span
+                  className={`phase-label ${phaseInfo.type}`}
+                  style={{
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? 'translate3d(0, 0, 0)' : `translate3d(${textOffsetX * 0.55}px, 0, 0)`,
+                    transition: 'opacity 0.4s ease, transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transitionDelay: '0.14s',
+                  }}
+                >
                   {phaseInfo.label}
                 </span>
               )}
               <h2
                 className="text-3xl md:text-4xl lg:text-5xl mb-6 leading-tight"
-                style={{ color: titleColor, fontWeight: 'var(--fz-weight-light)' }}
+                style={{
+                  color: titleColor,
+                  fontWeight: 'var(--fz-weight-light)',
+                  opacity: visible ? 1 : 0,
+                  transform: visible ? 'translate3d(0, 0, 0)' : `translate3d(${textOffsetX * 0.72}px, 24px, 0)`,
+                  transition: 'opacity 0.45s ease, transform 0.82s cubic-bezier(0.16, 1, 0.3, 1)',
+                  transitionDelay: '0.2s',
+                }}
               >
                 {phaseInfo ? phaseInfo.rest : title}
               </h2>
               {list ? (
-                <ul className="list-disc text-base md:text-lg max-w-xl" style={{color: textColor}}>
+                <ul
+                  className="list-disc text-base md:text-lg max-w-xl"
+                  style={{
+                    color: textColor,
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? 'translate3d(0, 0, 0)' : `translate3d(${textOffsetX * 0.9}px, 30px, 0)`,
+                    transition: 'opacity 0.45s ease, transform 0.88s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transitionDelay: '0.3s',
+                  }}
+                >
                   {list.map((item, i) => <li key={i}>{item}</li>)}
                 </ul>
               ) : (
                 <p
                   className="text-base md:text-lg whitespace-pre-line leading-relaxed"
-                  style={{ color: textColor, fontWeight: 'var(--fz-weight-regular)', margin: 0 }}
+                  style={{
+                    color: textColor,
+                    fontWeight: 'var(--fz-weight-regular)',
+                    margin: 0,
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? 'translate3d(0, 0, 0)' : `translate3d(${textOffsetX}px, 30px, 0)`,
+                    transition: 'opacity 0.45s ease, transform 0.88s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transitionDelay: '0.3s',
+                  }}
                 >
                   {text}
                 </p>
@@ -931,16 +1056,46 @@
             </div>
             <div
               className="section-content-cisco flex justify-center items-center py-0 pl-10"
-              style={mediaStyle}
+              style={{
+                order: isReversedLayout ? 1 : 2,
+                ...mediaPaddingStyle,
+                ...mediaStyle,
+              }}
             >
               {chatBubbles ? (
-                <div className="flex flex-col w-full max-w-lg gap-2">
+                <div
+                  className="flex flex-col w-full max-w-lg gap-2"
+                  style={{
+                    padding: '1.5rem',
+                    borderRadius: '1.5rem',
+                    background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(255,255,255,0.55)',
+                    border: isDark ? '1px solid rgba(255,255,255,0.08)' : '1px solid rgba(0,0,0,0.08)',
+                    boxShadow: isDark
+                      ? '0 30px 80px rgba(0,0,0,0.3)'
+                      : '0 24px 60px rgba(15,23,42,0.12)',
+                    animation: visible ? `${isReversedLayout ? 'mediaFloatLeft' : 'mediaFloatRight'} 7s ease-in-out 1s infinite` : 'none',
+                  }}
+                >
                   {chatBubbles.map((bubble, i) => (
                     <ChatBubble key={i} role={bubble.role} text={bubble.text} variant={bubble.variant} isDark={isDark} />
                   ))}
                 </div>
               ) : (
-                <div className="rounded-xl w-full flex justify-center items-center" style={{ maxHeight: '64vh', overflow: 'hidden' }}>
+                <div
+                  className="rounded-xl w-full flex justify-center items-center"
+                  style={{
+                    maxHeight: '64vh',
+                    overflow: 'hidden',
+                    padding: animated ? '1rem' : '0.75rem',
+                    borderRadius: '1.5rem',
+                    background: isDark ? 'rgba(255,255,255,0.03)' : 'rgba(255,255,255,0.52)',
+                    border: isDark ? '1px solid rgba(255,255,255,0.09)' : '1px solid rgba(0,0,0,0.08)',
+                    boxShadow: isDark
+                      ? '0 34px 90px rgba(0,0,0,0.34)'
+                      : '0 24px 64px rgba(15,23,42,0.14)',
+                    animation: visible ? `${isReversedLayout ? 'mediaFloatLeft' : 'mediaFloatRight'} ${animated ? '5.2s' : '7s'} ease-in-out 0.95s infinite` : 'none',
+                  }}
+                >
                   {video ? (
                     <video
                       ref={videoRef}
@@ -1035,6 +1190,7 @@
                 image={sections[activeIndex].image}
                 video={sections[activeIndex].video}
                 chatBubbles={sections[activeIndex].chatBubbles}
+                animated={sections[activeIndex].animated}
                 isDark={isDark}
               />
             </main>
